@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report id="account_move_sale_summary_report"
+        model="account.sale.summary.report.wizard"
+        string="Invoices Summary Report"
+        report_type="qweb-pdf"
+        name="tk_account_reports_pe.account_sale_summary_report_view"
+        paperformat="tk_account_reports_pe.paperformat_sale_summary_report"
+        menu="False"/>
+
+    <!-- ESTE ES EL REPORTE EN SI ************************************************************** -->
+    <template id="template_header">
+        <div class="header" t-att-style="'font-family:'+company_id.font_id.family+';font-size:'+str(company_id.font_size)+'px;'">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <center>
+                                <table border="0" cellpadding="0" cellspacing="0" t-attf-style="padding:0px 20px 0px 20px; margin:0; font-family: Arial,Helvetica, sans-serif; background:#fff; line-height:20px; border-bottom:1px solid #{company_id and company_id.theme_color or '#000000'};" width="100%">
+                                    <tr>
+                                        <td align="left" colspan="2" style="color:#4D4D4F; font-size:9px; padding:0 0px;" valign="top">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                <tr>
+                                                    <td align="left" style="color:#4D4D4F; font-size:9px; padding:0 0px; margin:0 " valign="middle">
+                                                        <img style="max-height: 40px; margin-top: 10%;" t-att-src="'data:image/png;base64,%s' % to_text(company_id.invoice_logo) or to_text(company.logo)" t-if="company_id.logo"/>
+                                                    </td>
+                                                    <td align="right" style=" font-size:12px; padding: 0 0 25px 0; line-height:16px; padding-top:16px" valign="top" width="570">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <t t-if="company_id and company_id.is_company_bold">
+                                                                        <span style="font-size :9px; padding:0px; margin:0;">
+                                                                            <b>
+                                                                                <span t-attf-style="color: #{company_id and company_id.company_color or '#ffffff'};  font-size :9px; " t-field="company_id.partner_id"/>
+                                                                            </b>
+                                                                        </span>
+                                                                    </t>
+                                                                    <t t-if="not company_id.is_company_bold">
+                                                                        <span style="font-size :9px; padding:0px; margin:0;">
+                                                                            <span t-attf-style="color: #{company_id and company_id.company_color or '#ffffff'};  font-size :9px; " t-field="company_id.partner_id"/>
+                                                                        </span>
+                                                                    </t>
+                                                                    <div t-attf-style="color: #{company_id and company_id.company_address_color or '#ffffff'}; font-size :9px; ">
+                                                                        <address t-field="company_id.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="border-bottom: 1px solid black;">
+                                <h4 class="text-center"><t t-esc="report_title" />
+                                    <span style="font-size: 14px;"><strong>Desde</strong>: <t t-esc="date_start"/> <strong>Hasta</strong>: <t t-esc="date_end"/></span>
+                                </h4>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="account_sale_summary_report_view">
+        <t t-call="web.html_container">
+            <t t-call="tk_account_reports_pe.template_header"/>
+            <div class="article mt0 o_report_layout_standard" style="padding-top: 15px;">
+                <table class="table table-condensed table-bordered">
+                    <thead style="font-size: xx-small;">
+                        <th style="width: 7%">Emisión</th>
+                        <th style="width: 7%">Vencimiento</th>
+                        <th style="width: 5%">Tipo Doc.</th>
+                        <th style="width: 5%">Serie</th>
+                        <th style="width: 5%">Número</th>
+                        <th style="width: 7%">RUC</th>
+                        <th style="width: 5%">Tipo RUC</th>
+                        <th style="width: 19%">Razón Social</th>
+                        <th style="width: 5%">Moneda</th>
+                        <th style="width: 7%">Base</th>
+                        <th style="width: 7%">IGV</th>
+                        <th style="width: 7%">Total</th>
+                        <th style="width: 10%">Usuario</th>
+                    </thead>
+                    <tbody style="font-size: xx-small;">
+                        <t t-foreach="docs" t-as="doc">
+                            <tr>
+                                <td class="text-center"><span t-esc="doc.invoice_date" widget="date"/></td>
+                                <td class="text-center"><span t-esc="doc.invoice_date_due" widget="date"/></td>
+                                <td class="text-center">
+                                    <t t-if="doc.journal_id.pe_invoice_code">
+                                        <span t-field="doc.journal_id.pe_invoice_code"/>
+                                    </t>
+                                    <t t-if="not doc.journal_id.pe_invoice_code">
+                                        <span>Factura</span>
+                                    </t>
+                                </td>
+                                <td class="text-center"><span t-field="doc.journal_id.code"/></td>
+                                <td>
+                                    <t t-if="doc.internal_number">
+                                        <t t-set="number" t-value="doc.internal_number.split('-')"/> 
+                                        <span t-esc="number[1]"/>
+                                    </t>
+                                </td>
+                                <td><span t-field="doc.partner_id.vat"/></td>
+                                <td class="text-center">
+                                    <t t-if="doc.partner_id.vat">
+                                        <t t-set="dict1" t-value="{'10': 'Personal', '15': 'Personal', '20': 'Empresa'}"/> 
+                                        <t t-set="val1" t-value="doc.partner_id.vat[0:2]"/> 
+                                        <t t-if="doc.journal_id.pe_invoice_code != '03'">
+                                            <span t-esc="dict1[val1]"/>
+                                        </t>
+                                        <t t-if="doc.journal_id.pe_invoice_code == '03'">
+                                            <span>DNI</span>
+                                        </t>
+                                    </t>
+                                    <t t-if="not doc.partner_id.vat">
+                                        <span> </span>
+                                    </t>
+                                </td>
+                                <td><span t-field="doc.partner_id.name"/></td>
+                                <td><span t-field="doc.currency_id.name"/></td>
+                                <td class="text-center">
+                                    <span t-field="doc.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="doc.amount_tax" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="doc.amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                                <td class="text-center"><span t-field="doc.user_id.name"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer o_standard_footer" style="border-top: 1px solid black;">
+                <div class="row text-center">
+                    <div class="col col-12 text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">Page:</li>
+                            <li class="list-inline-item">
+                                <span class="page"/>
+                            </li>
+                            <li class="list-inline-item">/</li>
+                            <li class="list-inline-item">
+                                <span class="topage"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <report id="account_move_debt_summary_report"
+        model="account.debt.summary.report.wizard"
+        string="Reporte de cobranzas/pagos"
+        report_type="qweb-pdf"
+        name="tk_account_reports_pe.account_debt_summary_report_view"
+        paperformat="tk_account_reports_pe.paperformat_sale_summary_report"
+        menu="False"/>
+
+    <template id="account_debt_summary_report_view">
+        <t t-call="web.html_container">
+            <t t-call="tk_account_reports_pe.template_header"/>
+            <div class="article mt0 o_report_layout_standard" style="padding-top: 15px;">
+                <table class="table table-condensed table-bordered">
+                    <thead style="font-size: xx-small;">
+                        <th style="width: 5%">Emisión</th>
+                        <th style="width: 5%">Vencimiento</th>
+                        <th style="width: 5%">Tipo Doc.</th>
+                        <th style="width: 5%">Serie</th>
+                        <th style="width: 5%">Número</th>
+                        <th style="width: 5%">Tipo RUC</th>
+                        <th style="width: 5%">RUC</th>
+                        <th style="width: 15%">Razón Social</th>
+                        <th style="width: 5%">Moneda</th>
+                        <th style="width: 5%">Monto Total</th>
+                        <th style="width: 5%">Estado</th>
+                        <th style="width: 5%">Medio de Pago</th>
+                        <th style="width: 5%">Fecha de Pago</th>
+                        <th style="width: 5%"># Operación</th>
+                        <th style="width: 5%">Monto Pagado</th>
+                        <th style="width: 5%">Saldo Pendiente</th>
+                        <th style="width: 10%">Usuario</th>
+                    </thead>
+                    <tbody style="font-size: xx-small;">
+                        <t t-foreach="docs" t-as="doc">
+                            <t t-if="len(doc['invoice_payments']) == 0 or len(doc['invoice_payments']) == 1">
+                                <tr>
+                                    <td class="text-center"><span t-esc="doc['invoice_date']" widget="date"/></td>
+                                    <td class="text-center"><span t-esc="doc['invoice_date_due']" widget="date"/></td>
+                                    <td class="text-center"><span t-esc="doc['document_type']"/></td>
+                                    <td class="text-center"><span t-esc="doc['serie']"/></td>
+                                    <td class="text-center"><span t-esc="doc['number']"/></td>
+                                    <td class="text-center"><span t-esc="doc['vat_type']"/></td>
+                                    <td><span t-esc="doc['partner_id'].vat"/></td>
+                                    <td><span t-esc="doc['partner_id'].name"/></td>
+                                    <td><span t-esc="doc['currency_id'].name"/></td>
+                                    <td class="text-center">
+                                        <span t-esc="doc['amount_total']" t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/>
+                                    </td>
+                                    <td><span t-esc="doc['invoice_payment_state']"/></td>
+                                    <t t-if="len(doc['invoice_payments']) == 0">
+                                        <td></td><td></td><td></td><td></td>
+                                    </t>
+                                    <t t-if="len(doc['invoice_payments']) == 1">
+                                        <td><span t-esc="doc['invoice_payments'][0]['journal_name']" /></td>
+                                        <td><span t-esc="doc['invoice_payments'][0]['date']" /></td>
+                                        <td><span t-esc="doc['invoice_payments'][0]['ref']" /></td>
+                                        <td><span t-esc="doc['invoice_payments'][0]['amount']"  t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/></td>
+                                    </t>
+                                    <td class="text-center">
+                                        <span t-esc="doc['invoice_residual']" t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/>
+                                    </td>
+                                    <td class="text-center"><span t-esc="doc['user_id'].name"/></td>
+                                </tr>    
+                            </t>
+                            <t t-if="len(doc['invoice_payments']) > 1">
+                                <t t-set="i" t-value="0" />
+                                <t t-set="rowspan" t-value="len(doc['invoice_payments'])" />
+                                <tr t-foreach="doc['invoice_payments']" t-as="payment">
+                                    <t t-if="i == 0">
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['invoice_date']" widget="date"/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['invoice_date_due']" widget="date"/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['document_type']"/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['serie']"/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['number']"/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['vat_type']"/></td>
+                                        <td t-att-rowspan="rowspan"><span t-esc="doc['partner_id'].vat"/></td>
+                                        <td t-att-rowspan="rowspan"><span t-esc="doc['partner_id'].name"/></td>
+                                        <td t-att-rowspan="rowspan"><span t-esc="doc['currency_id'].name"/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan">
+                                            <span t-esc="doc['amount_total']" t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/>
+                                        </td>
+                                        <td t-att-rowspan="rowspan"><span t-esc="doc['invoice_payment_state']"/></td>
+                                        <td><span t-esc="payment['journal_name']" /></td>
+                                        <td><span t-esc="payment['date']" /></td>
+                                        <td><span t-esc="payment['ref']" /></td>
+                                        <td><span t-esc="payment['amount']" t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/></td>
+                                        <td class="text-center" t-att-rowspan="rowspan">
+                                            <span t-esc="doc['invoice_residual']" t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/>
+                                        </td>
+                                        <td class="text-center" t-att-rowspan="rowspan"><span t-esc="doc['user_id'].name"/></td>
+                                    </t>
+                                    <t t-if="i != 0">
+                                        <td><span t-esc="payment['journal_name']" /></td>
+                                        <td><span t-esc="payment['date']" /></td>
+                                        <td><span t-esc="payment['ref']" /></td>
+                                        <td><span t-esc="payment['amount']" t-options='{"widget": "monetary", "display_currency": doc["currency_id"]}'/></td>
+                                    </t>
+                                    <t t-set="i" t-value="i + 1" />
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer o_standard_footer" style="border-top: 1px solid black;">
+                <div class="row text-center">
+                    <div class="col col-12 text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">Page:</li>
+                            <li class="list-inline-item">
+                                <span class="page"/>
+                            </li>
+                            <li class="list-inline-item">/</li>
+                            <li class="list-inline-item">
+                                <span class="topage"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

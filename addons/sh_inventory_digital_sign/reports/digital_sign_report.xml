@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="sh_inventory_delivery_reports_digital_sign" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[hasclass('page')]" position="inside">
+            <div class="mt32 ml64 mr4">
+                <div class="offset-8" style="text-align: center;">
+                    <span t-if="o.inventory_show_signature==True and ( o.inventory_sign_options=='delivery' or o.inventory_sign_options=='both')">
+                        <img t-if="o.digital_sign" t-att-src="'data:image/gif;base64,%s' % to_text(o.digital_sign)" style="width: 300px; height: 100px;" />
+                        <br />
+                        <span t-if="o.sign_by">
+                            <span t-field="o.sign_by" />
+                        </span>
+                        <br />
+                        <span t-if="o.designation">
+                            <span t-field="o.designation" />
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="sh_inventory_picking_reports_digital_sign" inherit_id="stock.report_picking">
+        <xpath expr="//div[hasclass('page')]" position="inside">
+            <div class="mt32 ml64 mr4">
+                <div class="offset-8" style="text-align: center;">
+                    <span t-if="o.inventory_show_signature==True and (o.inventory_sign_options=='picking' or o.inventory_sign_options=='both')">
+                        <img t-if="o.digital_sign" t-att-src="'data:image/gif;base64,%s' % to_text(o.digital_sign)" style="width: 300px; height: 100px;" />
+                        <br />
+                        <span t-if="o.sign_by">
+                            <span t-field="o.sign_by" />
+                        </span>
+                        <br />
+                        <span t-if="o.designation">
+                            <span t-field="o.designation" />
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

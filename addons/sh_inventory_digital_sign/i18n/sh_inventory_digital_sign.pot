@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_inventory_digital_sign
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-23 11:12+0000\n"
+"PO-Revision-Date: 2021-01-23 11:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields.selection,name:sh_inventory_digital_sign.selection__res_company__inventory_sign_options__both
+msgid "Both"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_company__inventory_sign_confirm
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_config_settings__inventory_sign_confirm
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__inventory_sign_confirm
+#: model_terms:ir.ui.view,arch_db:sh_inventory_digital_sign.sh_inventory_config_settings_digital_sign_view
+msgid "Check sign before Confirmation"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model,name:sh_inventory_digital_sign.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model,name:sh_inventory_digital_sign.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields.selection,name:sh_inventory_digital_sign.selection__res_company__inventory_sign_options__delivery
+msgid "Delivery Slip"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__designation
+msgid "Designation"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model_terms:ir.ui.view,arch_db:sh_inventory_digital_sign.sh_inventory_config_settings_digital_sign_view
+msgid "Digital Sign"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model_terms:ir.ui.view,arch_db:sh_inventory_digital_sign.sh_stock_picking_digital_sign_view
+msgid "Digital Signature"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_company__inventory_enable_other_sign_option
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_config_settings__inventory_enable_other_sign_option
+#: model_terms:ir.ui.view,arch_db:sh_inventory_digital_sign.sh_inventory_config_settings_digital_sign_view
+msgid "Enable Other Sign Option"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__inventory_show_enable_other_sign
+msgid "Enable Other sign Option"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields.selection,name:sh_inventory_digital_sign.selection__res_company__inventory_sign_options__picking
+msgid "Picking Operations"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_company__inventory_show_signature
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_config_settings__inventory_show_signature
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__inventory_show_signature
+msgid "Show digital sign in Inventory ?"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model_terms:ir.ui.view,arch_db:sh_inventory_digital_sign.sh_inventory_config_settings_digital_sign_view
+msgid "Show digital sign inside delivery slip, inventory options or both"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model_terms:ir.ui.view,arch_db:sh_inventory_digital_sign.sh_inventory_config_settings_digital_sign_view
+msgid "Show digital sign inside inventory"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_company__inventory_sign_options
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_res_config_settings__inventory_sign_options
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__inventory_sign_options
+msgid "Sign applicable inside"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__sign_on
+msgid "Sign on"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__digital_sign
+msgid "Signature"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model.fields,field_description:sh_inventory_digital_sign.field_stock_picking__sign_by
+msgid "Signed By"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: code:addons/sh_inventory_digital_sign/models/digital_sign.py:0
+#, python-format
+msgid "There is no Signature"
+msgstr ""
+
+#. module: sh_inventory_digital_sign
+#: model:ir.model,name:sh_inventory_digital_sign.model_stock_picking
+msgid "Transfer"
+msgstr ""

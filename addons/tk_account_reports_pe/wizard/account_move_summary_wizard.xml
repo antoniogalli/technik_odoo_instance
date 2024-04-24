@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_sale_summary_report_wizard" model="ir.ui.view" >
+        <field name="name">Invoice Summary Report</field>
+        <field name="model">account.sale.summary.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Facturas">
+                <group>
+                    <field name="report_type"/>
+                    <group>
+                        <field name="date_start"/>
+                    </group>
+                    <group>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_report" string="Ver reporte" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_debt_summary_report_wizard" model="ir.ui.view" >
+        <field name="name">Reporte de cobranzas/pagos</field>
+        <field name="model">account.debt.summary.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de cobranzas/pagos">
+                <group>
+                    <group>
+                        <field name="date_start"/>
+                    </group>
+                    <group>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_report" string="Ver reporte" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_account_sale_summary_report_wizard"
+        name="Reporte de ventas/compras"
+        res_model="account.sale.summary.report.wizard"
+        view_mode="form"
+        target="new"/>
+
+    <act_window id="action_account_debt_summary_report_wizard"
+        name="Reporte de cobranzas/pagos"
+        res_model="account.debt.summary.report.wizard"
+        view_mode="form"
+        target="new"/>
+
+    <menuitem id="menu_account_sale_summary_reports"
+        name="Reportes"
+        sequence="80"
+        parent="account.menu_finance_entries"/>
+
+    <menuitem action="action_account_sale_summary_report_wizard"
+        id="menu_account_sale_summary_report_wizard"
+        parent="menu_account_sale_summary_reports"/>
+
+    <menuitem action="action_account_debt_summary_report_wizard"
+        id="menu_account_debt_summary_report_wizard"
+        parent="menu_account_sale_summary_reports"/>
+
+</odoo>
