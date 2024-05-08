@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.auth.signup</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='allow_import']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" 
+                        id="login_documents"
+                        title=" To change the Token that allows the`API` search.">
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="token_for_api"/>
+                            <div class="text-muted">
+                                Let your customers change token 
+                            </div>
+                            <div class="mt8">
+                                <field name="token_for_api" class="o_light_label" required="True"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+</odoo>
