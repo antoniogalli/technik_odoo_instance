@@ -7,13 +7,13 @@ services:
     image: docker_odoo_tk
     container_name: docker_odoo_tk
     depends_on:
-      - client_db
+      - db
+
     ports:
-      - "8069:8069"
+      - '8069:8069'
       - "8072:8072" # live chat
     tty: true
     command: /start
-#    command: odoo scaffold /mnt/extra-addons/test_module
     environment:
       - HOST=db
       - USER=odoo
@@ -26,17 +26,16 @@ services:
     volumes:
       - odoo-web-data:/opt/odoo/data
       - ./extra-addons:/mnt/extra-addons
-    restart: always # run as a service
 
-  client_db:
+  db: 
     image: postgres:12.4
     ports:
       - "5432:5432"
-    restart: always             # run as a service
-    environment:
+    restart: always
+    environment: 
       - POSTGRES_DB=postgres
-      - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
