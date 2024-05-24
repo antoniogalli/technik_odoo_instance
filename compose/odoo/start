@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+if [[ "$#" -gt 0 && "$1" = "shell" ]]; then
+  cmd="shell"
+  shift
+else
+  cmd=""
+fi
+
+exec python3 /opt/odoo/odoo/odoo-bin $cmd -c /etc/odoo/odoo.conf  "$@"
