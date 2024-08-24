@@ -55,7 +55,6 @@ class KsDashboardNinjaBoard(models.Model):
         ('l_custom', 'Custom Filter'),
     ], default='l_none', string="Default Date Filter")
 
-
     ks_gridstack_config = fields.Char('Item Configurations')
     ks_dashboard_default_template = fields.Many2one('ks_dashboard_ninja.board_template',
                                                     default=lambda self: self.env.ref('ks_dashboard_ninja.ks_blank',
@@ -218,19 +217,11 @@ class KsDashboardNinjaBoard(models.Model):
         """
         if rec.ks_actions:
             action = {}
-            context = {}
-            try:
-                context = eval(rec.ks_actions.context)
-            except Exception:
-                context = {}
-
             action['name'] = rec.ks_actions.name
             action['type'] = rec.ks_actions.type
             action['res_model'] = rec.ks_actions.res_model
             action['views'] = rec.ks_actions.views
             action['view_mode'] = rec.ks_actions.view_mode
-            action['search_view_id'] = rec.ks_actions.search_view_id.id
-            action['context'] = context
             action['target'] = 'current'
         else:
             action = False
@@ -285,10 +276,6 @@ class KsDashboardNinjaBoard(models.Model):
             'action': action,
             'ks_hide_legend': rec.ks_hide_legend,
             'ks_data_calculation_type': rec.ks_data_calculation_type,
-            'ks_data_formatting':rec.ks_data_format,
-            'ks_button_color': rec.ks_button_color,
-            'ks_currency_symbol': self.env.company.currency_id.symbol,
-            'ks_currency_position': self.env.company.currency_id.position,
         }
         return item
 
@@ -298,22 +285,19 @@ class KsDashboardNinjaBoard(models.Model):
             if ks_date_filter_selection == 'l_custom':
                 self = self.with_context(
                     ksDateFilterStartDate=fields.datetime.strptime(self._context['ksDateFilterStartDate'],
-                                                                   "%Y-%m-%d %H:%M:%S"))
+                                                                   "%Y-%m-%dT%H:%M:%S.%fz"))
                 self = self.with_context(
                     ksDateFilterEndDate=fields.datetime.strptime(self._context['ksDateFilterEndDate'],
-                                                                 "%Y-%m-%d %H:%M:%S"))
-                self = self.with_context(ksIsDefultCustomDateFilter=False)
+                                                                 "%Y-%m-%dT%H:%M:%S.%fz"))
 
         else:
             ks_date_filter_selection = self.browse(ks_dashboard_id).ks_date_filter_selection
             self = self.with_context(ksDateFilterStartDate=self.browse(ks_dashboard_id).ks_dashboard_start_date)
             self = self.with_context(ksDateFilterEndDate=self.browse(ks_dashboard_id).ks_dashboard_end_date)
             self = self.with_context(ksDateFilterSelection=ks_date_filter_selection)
-            self = self.with_context(ksIsDefultCustomDateFilter=True)
-
 
         if ks_date_filter_selection not in ['l_custom', 'l_none']:
-            ks_date_data = ks_get_date(ks_date_filter_selection, self, 'datetime')
+            ks_date_data = ks_get_date(ks_date_filter_selection)
             self = self.with_context(ksDateFilterStartDate=ks_date_data["selected_start_date"])
             self = self.with_context(ksDateFilterEndDate=ks_date_data["selected_end_date"])
 
@@ -395,7 +379,7 @@ class KsDashboardNinjaBoard(models.Model):
             'ks_background_color': rec.ks_background_color,
             'ks_font_color': rec.ks_font_color,
             'ks_domain': rec.ks_domain,
-            'ks_icon': str(rec.ks_icon) if rec.ks_icon else False,
+            'ks_icon': rec.ks_icon,
             'ks_id': rec.id,
             'ks_model_id': rec.ks_model_name,
             'ks_record_count': rec.ks_record_count,
@@ -462,10 +446,7 @@ class KsDashboardNinjaBoard(models.Model):
             'ks_chart_unit': rec.ks_chart_unit,
             'ks_bar_chart_stacked': rec.ks_bar_chart_stacked,
             'ks_goal_bar_line': rec.ks_goal_bar_line,
-            'ks_data_format': rec.ks_data_format,
-            'ks_actions': rec.ks_actions.xml_id if rec.ks_actions else False,
-            'ks_button_color': rec.ks_button_color,
-            'ks_company_id': False,
+            'ks_actions': rec.ks_actions.xml_id if rec.ks_actions else False
         }
         return item
 
@@ -502,7 +483,6 @@ class KsDashboardNinjaBoard(models.Model):
                 'ks_date_filter_selection': self.browse(ks_dashboard_id).ks_date_filter_selection,
                 'ks_dashboard_start_date': self.browse(ks_dashboard_id).ks_dashboard_start_date,
                 'ks_dashboard_end_date': self.browse(ks_dashboard_id).ks_dashboard_end_date,
-                'ks_dashboard_top_menu_id': self.browse(ks_dashboard_id).ks_dashboard_top_menu_id.id
             }
             if len(self.browse(ks_dashboard_id).ks_dashboard_items_ids) < 1:
                 dashboard_data['ks_item_data'] = False
@@ -545,17 +525,10 @@ class KsDashboardNinjaBoard(models.Model):
             if not all(key in data for key in ks_dashboard_key):
                 raise ValidationError(
                     _("Current Json File is not properly formatted according to Dashboard Ninja Model."))
-            ks_dashboard_top_menu_id = data.get('ks_dashboard_top_menu_id', False)
-            if ks_dashboard_top_menu_id:
-                try:
-                    self.env['ir.ui.menu'].browse(ks_dashboard_top_menu_id).name
-                    ks_dashboard_top_menu_id = self.env['ir.ui.menu'].browse(ks_dashboard_top_menu_id)
-                except Exception:
-                    ks_dashboard_top_menu_id = False
             vals = {
                 'name': data['name'],
                 'ks_dashboard_menu_name': data['ks_dashboard_menu_name'],
-                'ks_dashboard_top_menu_id': ks_dashboard_top_menu_id.id if ks_dashboard_top_menu_id else self.env.ref("ks_dashboard_ninja.board_menu_root").id,
+                'ks_dashboard_top_menu_id': self.env.ref("ks_dashboard_ninja.board_menu_root").id,
                 'ks_dashboard_active': True,
                 'ks_gridstack_config': data['ks_gridstack_config'],
                 'ks_dashboard_default_template': self.env.ref("ks_dashboard_ninja.ks_blank").id,
@@ -574,7 +547,6 @@ class KsDashboardNinjaBoard(models.Model):
 
             item_ids = []
             item_new_ids = []
-            ks_skiped = False
             if data['ks_item_data']:
                 # Fetching dashboard item info
                 ks_skiped = 0
@@ -641,11 +613,6 @@ class KsDashboardNinjaBoard(models.Model):
             del item['ks_id']
         if 'ks_action_liness' in item:
             del item['ks_action_liness']
-        if 'ks_icon' in item:
-            item['ks_icon_select'] = "Default"
-            item['ks_icon'] = False
-
-
 
         ks_item = self.env['ks_dashboard_ninja.item'].create(item)
 

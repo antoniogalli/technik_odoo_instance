@@ -157,7 +157,6 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_graph_preview', function(requi
                         labels: {
                             show: true,
                         }
-
                     },
                     {
                         type: "linear",
@@ -173,42 +172,14 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_graph_preview', function(requi
                                 var ks_selection = self.chart_data.ks_selection;
                                 if (ks_selection === 'monetary') {
                                     var ks_currency_id = self.chart_data.ks_currency;
-
-                                    if (self.recordData.ks_data_format == 'exact'){
-                                        var ks_data = value;
-                                        ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                    }else{
-                                        if (self.recordData.ks_data_format == 'indian'){
-                                            var ks_data = KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                            ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                        }else{
-                                            var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
-                                            ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                        }
-                                    }
+                                    var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
+                                    ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
                                     return ks_data;
                                 } else if (ks_selection === 'custom') {
                                     var ks_field = self.chart_data.ks_field;
-                                    if (self.recordData.ks_data_format == 'exact'){
-                                        return value + ' ' + ks_field;
-                                    }else{
-                                        if (self.ksNumIndianFormatter == 'indian'){
-                                            return KsGlobalFunction.ksNumIndianFormatter(value, 1) + ' ' + ks_field;
-                                        }else{
-                                            return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
-                                        }
-                                    }
-//                              --- showing exact value on y-axis left-side ---
-                                }else {
-                                    if (self.recordData.ks_data_format == 'exact'){
-                                        return value;
-                                    }else{
-                                        if (self.recordData.ks_data_format == 'indian')
-                                            return KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                        else{
-                                            return KsGlobalFunction.ksNumFormatter(value, 1);
-                                        }
-                                    }
+                                    return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
+                                } else {
+                                    return KsGlobalFunction.ksNumFormatter(value, 1);
                                 }
                             },
                         }
@@ -445,40 +416,14 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_graph_preview', function(requi
                     var ks_selection = ks_self.chart_data.ks_selection;
                     if (ks_selection === 'monetary') {
                         var ks_currency_id = ks_self.chart_data.ks_currency;
-                        if (self.recordData.ks_data_format == 'exact'){
-                            var ks_data = value;
-                            ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                        }else{
-                            if(self.recordData.ks_data_format == 'indian'){
-                                var ks_data = KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                            }else{
-                                var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
-                                ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                            }
-                        }
+                        var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
+                        ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
                         return ks_data;
                     } else if (ks_selection === 'custom') {
                         var ks_field = ks_self.chart_data.ks_field;
-                        if (self.recordData.ks_data_format == 'exact'){
-                            return value + ' ' +ks_field;
-                        }else{
-                            if(self.recordData.ks_data_format == 'indian'){
-                                return KsGlobalFunction.ksNumIndianFormatter(value, 1) + ' ' + ks_field;
-                            }else{
-                                return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
-                            }
-                        }
+                        return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
                     } else {
-                            if (self.recordData.ks_data_format == 'exact'){
-                                return value;
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    return KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                }else{
-                                    return KsGlobalFunction.ksNumFormatter(value, 1);
-                                }
-                            }
+                        return KsGlobalFunction.ksNumFormatter(value, 1);
                     }
                 };
 
@@ -495,40 +440,14 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_graph_preview', function(requi
                         var ks_selection = ks_self.chart_data.ks_selection;
                         if (ks_selection === 'monetary') {
                             var ks_currency_id = ks_self.chart_data.ks_currency;
-                            if (self.recordData.ks_data_format == 'exact'){
-                                var ks_data = value;
-                                ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    var ks_data = KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                    ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                }else{
-                                    var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
-                                    ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                }
-                            }
+                            var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
+                            ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
                             return ks_data;
                         } else if (ks_selection === 'custom') {
                             var ks_field = ks_self.chart_data.ks_field;
-                            if(self.recordData.ks_data_format == 'exact'){
-                                return value + ' ' + ks_field;
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    return KsGlobalFunction.ksNumIndianFormatter(value, 1) + ' ' + ks_field;
-                                }else{
-                                    return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
-                                }
-                            }
+                            return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
                         } else {
-                            if (self.recordData.ks_data_format == 'exact'){
-                                return value;
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    return KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                }else{
-                                    return KsGlobalFunction.ksNumFormatter(value, 1);
-                                }
-                            }
+                            return KsGlobalFunction.ksNumFormatter(value, 1);
                         }
                     }
                     options.scales.xAxes[0].ticks.beginAtZero = true;
@@ -538,40 +457,14 @@ odoo.define('ks_dashboard_ninja_list.ks_dashboard_graph_preview', function(requi
                         var ks_selection = ks_self.chart_data.ks_selection;
                         if (ks_selection === 'monetary') {
                             var ks_currency_id = ks_self.chart_data.ks_currency;
-                            if(self.recordData.ks_data_format == 'exact'){
-                                var ks_data = value;
-                                ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    var ks_data = KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                    ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                }else{
-                                    var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
-                                    ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
-                                }
-                            }
+                            var ks_data = KsGlobalFunction.ksNumFormatter(value, 1);
+                            ks_data = KsGlobalFunction.ks_monetary(ks_data, ks_currency_id);
                             return ks_data;
                         } else if (ks_selection === 'custom') {
                             var ks_field = ks_self.chart_data.ks_field;
-                            if(self.recordData.ks_data_format == 'exact'){
-                                return value + ' ' + ks_field;
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    return KsGlobalFunction.ksNumIndianFormatter(value, 1) + ' ' + ks_field;
-                                }else{
-                                    return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
-                                }
-                            }
+                            return KsGlobalFunction.ksNumFormatter(value, 1) + ' ' + ks_field;
                         } else {
-                            if (self.recordData.ks_data_format == 'exact'){
-                                return value;
-                            }else{
-                                if(self.recordData.ks_data_format == 'indian'){
-                                    return KsGlobalFunction.ksNumIndianFormatter(value, 1);
-                                }else{
-                                    return KsGlobalFunction.ksNumFormatter(value, 1);
-                                }
-                            }
+                            return KsGlobalFunction.ksNumFormatter(value, 1);
                         }
                     }
                 }

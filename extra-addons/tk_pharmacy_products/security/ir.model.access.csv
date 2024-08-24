@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tk_pharmacy_products_tk_pharmaceutical_form,tk_pharmacy_products.tk.pharmaceutical_form,tk_pharmacy_products.model_tk_pharmaceutical_form,base.group_user,1,1,1,1
+access_tk_pharmacy_products_tk_route,tk_pharmacy_products.tk.route,tk_pharmacy_products.model_tk_route,base.group_user,1,1,1,1
+access_tk_pharmacy_products_tk_presentationaccess_tk_pharmacy_products_tk_presentation,tk_pharmacy_products.tk.dosage,tk_pharmacy_products.model_tk_dosage,base.group_user,1,1,1,1

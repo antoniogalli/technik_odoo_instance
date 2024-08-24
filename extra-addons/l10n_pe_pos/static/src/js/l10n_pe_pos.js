@@ -377,33 +377,22 @@ odoo.define('l10n_pe_pos.l10n_pe_pos', function (require) {
                             .then(function (result) {
                                 if (result.detail != "Not found.") {
                                     if (doc_type == "1") {
-                                        contents.find("[name='name']").val(result.nombres + ' ' + result.apellidoPaterno + ' ' + result.apellidoMaterno);
+                                        contents.find("[name='name']").val(result.name + ' ' + result.paternal_surname + ' ' + result.maternal_surname);
                                         contents.find('.vat').val(doc_number);
                                         contents.find('.is_validate').val(true);//attr('checked', true);
                                         contents.find('.last_update').val(result.last_update);
                                         contents.find('.doc_type').val(doc_type);
                                     }
                                     else if (doc_type == "6") {
-                                        contents.find("[name='name']").val(result.nombre);
-                                        contents.find('.commercial_name').val(result.nombre);
-                                        contents.find('.legal_name').val(result.nombre);
-                                        contents.find("[name='street']").val(result.direccion);
-                                        let peru;
-                                        for (let i = 0; i < self.pos.countries.length; i ++) {
-                                            const country = self.pos.countries.at(i);
-                                            if (country.code === "PE") {
-                                                peru = country;
-                                                break;
-                                            }
-                                        } 
-                                        if (typeof peru !== "undefined") {
-                                            contents.find("[name='country_id']").val(peru.id);
-                                        }
+                                        contents.find("[name='name']").val(result.legal_name);
+                                        contents.find('.commercial_name').val(result.commercial_name);
+                                        contents.find('.legal_name').val(result.legal_name);
+                                        contents.find("[name='street']").val(result.street);
                                         contents.find('.is_validate').val(true);//attr('checked', true);
                                         contents.find('.vat').val(doc_number);
                                         contents.find('.last_update').val(result.last_update);
-                                        contents.find("[name='state']").val(result.estado);
-                                        contents.find("[name='condition']").val(result.condicion);
+                                        contents.find("[name='state']").val(result.state);
+                                        contents.find("[name='condition']").val(result.condition);
                                         contents.find("[name='doc_type']").val(doc_type);
                                     }
                                 }

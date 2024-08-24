@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_company_form2">
+        <field name="name">res.company.view.form.inherit.fasufar</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Otros">
+                    <group>
+
+
+<!--                        <field name="qrlink" widget="image"/>-->
+<!--                        <field name="qrlink_invoice" widget="image"/>-->
+                        <field name="textocotizacion"/>
+                        <field name="textopaguese"/>
+                        <field name="observacion_ordencompra"/>
+
+
+
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>       

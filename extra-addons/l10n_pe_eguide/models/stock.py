@@ -16,6 +16,10 @@ except:
     qr_mod = False
 
 
+import logging
+_logger = logging.getLogger(__name__)
+
+
 class Picking(models.Model):
     _inherit = "stock.picking"
 

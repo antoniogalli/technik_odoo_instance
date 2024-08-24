@@ -3,6 +3,11 @@ from odoo import api, fields, models, _
 import odoo.addons.decimal_precision as dp
 from datetime import datetime
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
+
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -48,6 +53,7 @@ class AccountMove(models.Model):
         res = super(AccountMove, self).action_post()
         for move_id in self:
             move_id.internal_number = move_id.name
+        _logger.info("SIT res=%s", res)
         return res
 
 

@@ -150,6 +150,7 @@ odoo.define('pos_journal_sequence.pos_journal_sequence', function (require) {
             var suffix = sequence.interpolated_suffix || "";
             var increment = this.db.get_sequence_next(journal_id);
             var number = prefix + _.str.sprintf(num, parseInt(increment)) + suffix;
+//            var number = prefix + num.sprintf(parseInt(increment)) + suffix;
             return { 'number': number, 'invoice_sequence_number': increment };
         },
         get_order_number: function (journal_id) {

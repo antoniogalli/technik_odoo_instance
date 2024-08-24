@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_accoun_move_invoice_2">
+        <field name="name">account.move.view.form.inherit.fasufar</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_origin']" position="after">
+                <field name="condicionpago"/>
+                <field name="client_order_ref"/>
+                <field name="guiaremision"/>
+                <field name="observacion"/>
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+            </xpath>
+        </field>
+    </record>
+</odoo>

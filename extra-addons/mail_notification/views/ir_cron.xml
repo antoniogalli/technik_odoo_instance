@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+
+    <!-- CRON JOB FOR IMPORTING CONTACT -->
+    <record id="cron_move_data_from_invoice" model="ir.cron">
+        <field name="name">Daily mail validation</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_mail_notification_mail_notification"/>
+        <field name="code">model.daily_mail_notificacion()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True"/>
+    </record>
+
+
+
+
+  </data>
+</odoo>

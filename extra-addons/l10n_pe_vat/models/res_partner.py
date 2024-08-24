@@ -44,6 +44,20 @@ CONDITION = [
     ("NO HALLADO RECHAZADO", "NO HALLADO RECHAZADO"),
 ]
 
+API_DNI = "https://api.apis.net.pe/v1/dni?numero={}"
+API_RUC = "https://api.apis.net.pe/v1/ruc?numero={}"
+
+
+def token(self):
+    user = self.env.user
+    company = self.env.user.company_id
+    if len(company) == 0:
+        raise UserError("the user dont have asociated company.")
+
+    token = self.env.user.company_id.L10n_pe_vat_token_api
+
+    return token
+
 
 class Partner(models.Model):
     _inherit = "res.partner"
@@ -163,15 +177,12 @@ class Partner(models.Model):
             if vat_type == "1":
                 if len(vat) != 8:
                     raise UserError(_("the DNI entered is incorrect"))
-                print((self.env.user.company_id.apis_dni_url(vat.strip())))
-
+                print(API_DNI.format(vat.strip()))
                 try:
                     response = requests.get(
-                        self.env.user.company_id.apis_dni_url(vat.strip()),
+                        API_DNI.format(vat.strip()),
                         timeout=300,
-                        headers={
-                            "Authorization": f"Bearer {self.env.user.company_id.get_apis_net_pe_token()}"
-                        },
+                        headers={"Authorization": f"Bearer {token(self)}"},
                     )
                 except requests.RequestException:
                     reponse = False
@@ -199,17 +210,13 @@ class Partner(models.Model):
                 try:
                     if self.env.context.get("force_update"):
                         response = requests.get(
-                            self.env.user.company_id.apis_ruc_url(vat.strip()),
-                            headers={
-                                "Authorization": f"Bearer {self.env.user.company_id.get_apis_net_pe_token()}"
-                            },
+                            API_RUC.format(vat.strip()),
+                            headers={"Authorization": f"Bearer {token(self)}"},
                         )
                     else:
                         response = requests.get(
-                            self.env.user.company_id.apis_ruc_url(vat.strip()),
-                            headers={
-                                "Authorization": f"Bearer {self.env.user.company_id.get_apis_net_pe_token()}"
-                            },
+                            API_RUC.format(vat.strip()),
+                            headers={"Authorization": f"Bearer {token(self)}"},
                         )
                 except requests.RequestException:
                     response = False

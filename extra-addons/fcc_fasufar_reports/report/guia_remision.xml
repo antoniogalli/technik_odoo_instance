@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+     <record id="paperformata4_portrait_GuiaRemision" model="report.paperformat">
+        <field name="name">GuiaRemision A4 Portrait Apromed</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">110</field>
+    </record>
+    <report
+            string="Vale de Entrega / Guía de Remisión"
+            id="stock.action_report_delivery"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="stock.report_deliveryslip"
+            file="stock.report_deliveryslip"
+            paperformat="fcc_fasufar_reports.paperformata4_portrait_GuiaRemision"
+            print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+    />
+    <report
+            string="Vale de Entrega / Guía de Remisión APROMED"
+            id="guia_remision"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="stock.report_deliveryslip"
+            file="stock.report_deliveryslip"
+            paperformat="fcc_fasufar_reports.paperformata4_portrait_GuiaRemision"
+            print_report_name="'Guia de Remisión - %s - %s' % (object.partner_id.name or '', object.name)"
+    />
+
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//t" position="replace">
+            <t t-call="web.html_container">
+
+                <t t-foreach="docs" t-as="doc">
+
+
+
+                    <div class="page">
+                        <style>
+                            body {
+                            font-family: Arial, sans-serif;
+                            }
+                            table.blueTable {
+                            font-family: Arial, sans-serif;
+                            border: none;
+                            background-color: #ffffff;
+                            width: 100%;
+                            text-align: center;
+                            border-collapse: collapse;
+                            }
+                            table.blueTable td, table.blueTable th {
+                            border: none;
+                            padding: 3px 3px;
+                            vertical-align: top;
+                            }
+                            table.blueTable tbody td {
+                            vertical-align: top;
+                            font-size: 13px;
+
+                            text-align: left;
+                            }
+                            table.blueTable tr:nth-child(even) {
+                            background: #eeeeee;
+                            }
+                            table.blueTable thead {
+                            background: #9db1df;
+                            border: none;
+                            }
+                            table.blueTable thead th {
+                            font-size: 15px;
+
+
+                            text-align: center;
+                            border: none;
+                            }
+                            table.blueTable thead th:first-child {
+                            border-left: none;
+                            }
+
+                            table.blueTable tfoot td {
+                            font-size: 14px;
+                            background: #9db1df;
+                            text-align: right;
+
+                            }
+                            table.blueTable tfoot .links {
+                            text-align: right;
+                            }
+                            table.blueTable tfoot .links a{
+                            display: inline-block;
+                            background: #1C6EA4;
+                            color: #FFFFFF;
+                            padding: 2px 8px;
+                            border: none;
+                            }
+
+                        </style>
+                        <table border="0" cellpadding="5" cellspacing="0" id="encabezado" style="width:100%">
+                            <tbody>
+                                <tr>
+                                    <td style="   width:25% ; padding: 10px 20px; vertical-align: top;" rowspan="2">
+                                        <img style="max-height: 140px; max-width: 300px;  vertical-align: top;"
+                                             t-att-src="'data:image/png;base64,%s' % to_text(doc.company_id.logo) or to_text(company.logo)"
+                                             t-if="doc.company_id.logo"/>
+                                    </td>
+                                    <td style="   width:45% ; padding: 10px 20px; font-size : 14px; vertical-align: top; text-align:center">
+                                        <b>
+                                            <span t-field="doc.company_id.report_header"/>
+                                        </b>
+                                    </td>
+                                    <td style="   width:5% ; padding: 10px 20px; vertical-align: top;">
+
+                                    </td>
+                                    <td style="   width:25% ; padding: 10px 20px; vertical-align: top;" rowspan="3">
+                                        <table border="0" cellpadding="1" cellspacing="1" style="width:100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="background-color:#12428d; text-align:left; width:100%">
+                                                        <strong>
+                                                            <span style="color:#ffffff">FECHA DE TRASLADO:</span>
+                                                        </strong>
+                                                        <span style="color:#ffffff">
+                                                            <span t-field="doc.scheduled_date"/>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-xs-5"
+                                                             t-if="doc.pe_is_eguide and doc.pe_guide_number!='/'">
+                                                            <img t-if="doc.sunat_pdf417_code"
+                                                                 t-att-src="'data:image/png;base64,%s' % to_text(doc.sunat_pdf417_code)"
+                                                                 class="img-responsive center-block"
+                                                                 style="width: 320px;  height: 65px;"></img>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+
+                                        <table border="0" cellpadding="1" cellspacing="1" style="width:100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align:center">
+                                                        <strong>GUIA DE REMISION ELECTRONICA REMITENTE NUMERO :
+                                                            <span t-field="doc.name"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                                        <table border="0" cellpadding="1" cellspacing="1" style="width:100%">
+                                            <tbody>
+                                                  <tr>
+                                                    <td>
+                                                        <strong>N° FACTURA
+                                                            :
+                                                        </strong>
+
+                                                        <t t-foreach="doc.sale_id.invoice_ids" t-as="factura">
+                                                            <span t-field="factura.name"/>
+                                                        </t>
+                                                    </td><td>
+                                                        <strong>N° ORDEN :</strong>
+                                                        <span t-field="doc.origin"/>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <strong>REMITENTE:</strong>
+                                                        <span t-field="doc.company_id.partner_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <strong>DESTINATARIO:</strong>
+                                                        <span t-field="doc.partner_id.name"/>
+
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>RUC:</strong>
+                                                        <span t-field="doc.company_id.partner_id.vat"/>
+                                                    </td>
+                                                    <td>
+                                                        <strong>RUC:</strong>
+                                                        <span t-field="doc.partner_id.vat"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <strong>DIRECCIÓN DE PARTIDA :</strong>
+                                                        <span t-field="doc.company_id.partner_id.street"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <strong>DIRECCIÓN DE LLEGADA :</strong>
+                                                        <span t-field="doc.partner_id.street"/>,
+                                                        <span t-if="doc.partner_id.l10n_pe_district"
+                                                              t-field="doc.partner_id.l10n_pe_district"/>,
+                                                        <span t-if="doc.partner_id.city_id.name"
+                                                              t-field="doc.partner_id.city_id.name"></span>,
+                                                        <span t-if="doc.partner_id.state_id.name"
+                                                              t-field="doc.partner_id.state_id.name"></span>,
+                                                        <span t-if="doc.partner_id.country_id.name"
+                                                              t-field="doc.partner_id.country_id.name"></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+
+                        <p></p>
+
+                        <table class="blueTable" align="left" border="0" cellpadding="1" cellspacing="1"
+                               style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">N°</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">CODIGO</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">DESCRIP</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">F. FARMAC.</span>
+                                        </strong>
+                                    </th>
+                                    <th colspan="2" scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">PRESENT.</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">LOTE</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">F.VENC.</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">MARCA</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">CANT</span>
+                                        </strong>
+                                    </th>
+                                    <th scope="col" style="background-color:#12428d">
+                                        <strong>
+                                            <span style="color:#ffffff">U/ MED</span>
+                                        </strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="nn" t-value="1"/>
+                                <t t-foreach="doc.move_line_ids_without_package.sorted(key=lambda m: m.product_id.id)"
+                                   t-as="move">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="nn"/>
+                                        </td>
+
+                                        <td>
+                                            <span t-esc="move.product_id.default_code"/>
+                                            <span t-field="move.product_id.display_name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="move.product_id.pharmaceutical_composition"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="move.product_id.pharmaceutical_form.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="move.product_id.dosage.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="move.product_id.quantity_per_presentation"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="move.lot_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="move.lot_id.life_date and move.lot_id.life_date.strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="move.product_id.batch"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.qty_done"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_id.uom_id" groups="uom.group_uom"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="nn" t-value="nn+1"/>
+                                </t>
+                                <!--                                <t t-foreach="doc.move_ids_without_package.sorted(key=lambda m: m.product_id.id)"-->
+                                <!--                                   t-as="move">-->
+                                <!--                                    <tr>-->
+                                <!--                                        <td>1</td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.product_id.default_code"/>-->
+                                <!--                                            <span t-field="move.product_id.display_name"/>-->
+                                <!--                                            <br/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <br/>-->
+                                <!--                                            <span t-esc="move.product_id.pharmaceutical_composition"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.product_id.pharmaceutical_form.name"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.product_id.dosage.name"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.product_id.quantity_per_presentation"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.sale_line_id.lote"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.sale_line_id.fechavencimiento"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-esc="move.product_id.batch"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-field="move.product_uom_qty"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td>-->
+                                <!--                                            <span t-field="move.product_uom" groups="uom.group_uom"/>-->
+                                <!--                                        </td>-->
+                                <!--                                    </tr>-->
+                                <!--                                </t>-->
+                                <tr>
+                                    <td colspan="11" style="background-color:#12428d; text-align:right">
+                                        <span style="color:#ffffff">
+                                            <strong>PESO BRUTO TOTAL DE LA GUIA (KGM) :2222</strong>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <t t-set="driver_id_name" t-value=""/>
+                        <t t-set="driver_id_doc_number" t-value=""/>
+                        <t t-set="driver_id_pe_driver_license" t-value=""/>
+                        <t t-set="fleet_id_name" t-value=""/>
+                        <t t-set="fleet_id_license_plate" t-value=""/>
+                        <t t-foreach="doc.pe_fleet_ids" t-as="fleet_id">
+                            <t t-set="driver_id_name" t-value="fleet_id.driver_id.name"/>
+                            <t t-set="driver_id_doc_number" t-value="fleet_id.driver_id.doc_number"/>
+                            <t t-set="driver_id_pe_driver_license" t-value="fleet_id.driver_id.pe_driver_license"/>
+                            <t t-set="fleet_id_name" t-value="fleet_id.fleet_id.brand_id.name"/>
+                            <t t-set="fleet_id_license_plate" t-value="fleet_id.fleet_id.license_plate"/>
+                        </t>
+
+                        <table border="0" cellspacing="0" style="width:100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>TRANSPORTISTA</strong>
+
+<!--                                        <span t-field="doc.pe_transport_mode"/>-->
+                                    </td>
+                                    <td>
+                                        <strong>CONDUCTOR</strong>
+
+                                    </td>
+                                    <td>
+                                        <strong>DATOS DE LA UNIDAD DE TRANSPORTE</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>EMPRESA:</strong>
+                                        <t t-if="doc.pe_transport_mode=='01'">
+                                            <span t-field="doc.pe_carrier_id.name"/>
+
+                                        </t>
+                                        <t t-if="doc.pe_transport_mode=='02'">
+                                            <span t-field="doc.company_id.partner_id.name"/>
+
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <strong>NOMBRE :</strong>
+                                        <span t-esc="driver_id_name or ''"/>
+                                        <span t-esc="driver_id_name"/>
+                                    </td>
+                                    <td>
+                                        <strong>MARCA DEL VEHICULO:</strong>
+                                        <span t-esc="fleet_id_name or ''"/>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <strong>RUC:</strong>
+                                        <t t-if="doc.pe_transport_mode=='01'">
+                                            <span t-field="doc.pe_carrier_id.vat"/>
+                                        </t>
+
+                                        <t t-if="doc.pe_transport_mode=='02'">
+                                            <span t-field="doc.partner_id.vat"/>
+
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <strong>DNI:</strong>
+                                        <span t-esc="driver_id_doc_number or ''"/>
+                                    </td>
+                                    <td>
+                                        <strong>N° DE PLACA:</strong>
+                                        <span t-esc="fleet_id_license_plate or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>N° LICENCIA :</strong>
+                                        <span t-esc="driver_id_pe_driver_license or ''"/>
+                                    </td>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <p></p>
+
+                        <table style="width:100%">
+                            <tr>
+                                <td style=" width:75% vertical-align: top;">
+                                    <div style=" width:100% background-color:#b1c6e5 ;">
+                                        <strong>OBSERVACIONES :</strong>
+                                        <span t-esc="doc.pe_transfer_code"/>
+                                        <span t-field="doc.motivo"/>
+                                        <span t-esc="doc.note or ''"/>
+                                    </div>
+                                </td>
+                                <td style="width:25% text-align:center">
+                                    <div class="row">
+                                        <p class="text-center">
+                                            Representacion impresa de:
+                                            GUIA DE REMISION
+                                            , para consultar el documento visita
+                                            <span t-field="doc.company_id.website"/>
+                                            <br/>
+                                            <p t-if="doc.pe_is_eguide">
+                                                <strong>Resumen:</strong>
+                                                <br></br>
+                                                <span t-field="doc.pe_digest"></span>
+                                            </p>
+
+
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+
+
+                <!--                <t t-call="web.external_layout">-->
+                <!--                    <div t-if='o.sudo().sale_id.client_order_ref'></div>-->
+                <!--                    <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>-->
+                <!--                    <t t-set="partner"-->
+                <!--                       t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>-->
+                <!--                    <t t-if="partner" name="partner_header">-->
+                <!--                        <t t-set="address">-->
+                <!--                            <div t-esc="partner"-->
+                <!--                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>-->
+                <!--                        </t>-->
+                <!--                    </t>-->
+
+                <!--                    <div class="page">-->
+                <!--                        <h2>-->
+                <!--                            <span t-field="o.name"/>-->
+                <!--                        </h2>-->
+                <!--                        <div class="row mt32 mb32">-->
+                <!--                            <div t-if="o.origin" class="col-auto" name="div_origin">-->
+                <!--                                <strong>Order:</strong>-->
+                <!--                                <p t-field="o.origin"/>-->
+                <!--                            </div>-->
+                <!--                            <div t-if="o.state" class="col-auto" name="div_sched_date">-->
+                <!--                                <strong>Shipping Date:</strong>-->
+                <!--                                <t t-if="o.state == 'done'">-->
+                <!--                                    <p t-field="o.date_done"/>-->
+                <!--                                </t>-->
+                <!--                                <t t-if="o.state != 'done'">-->
+                <!--                                    <p t-field="o.scheduled_date"/>-->
+                <!--                                </t>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                        <table class="table table-sm" t-if="o.state!='done'" name="stock_move_table">-->
+                <!--                            <thead>-->
+                <!--                                <tr>-->
+                <!--                                    <th name="th_sm_product">-->
+                <!--                                        <strong>Product</strong>-->
+                <!--                                    </th>-->
+                <!--                                    <th name="th_sm_quantity">-->
+                <!--                                        <strong>Quantity</strong>-->
+                <!--                                    </th>-->
+                <!--                                </tr>-->
+                <!--                            </thead>-->
+                <!--                            <tbody>-->
+                <!--                                <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>-->
+                <!--                                <tr t-foreach="lines" t-as="move">-->
+                <!--                                    <td>-->
+                <!--                                        <span t-field="move.product_id"/>-->
+                <!--                                        <p t-if="move.description_picking != move.product_id.name">-->
+                <!--                                            <span t-field="move.description_picking"/>-->
+                <!--                                        </p>-->
+                <!--                                    </td>-->
+                <!--                                    <td>-->
+                <!--                                        <span t-field="move.product_uom_qty"/>-->
+                <!--                                        <span t-field="move.product_uom"/>-->
+                <!--                                    </td>-->
+                <!--                                </tr>-->
+                <!--                            </tbody>-->
+                <!--                        </table>-->
+                <!--                        <table class="table table-sm mt48" t-if="o.move_line_ids and o.state=='done'"-->
+                <!--                               name="stock_move_line_table">-->
+                <!--                            <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')"/>-->
+                <!--                            <thead>-->
+                <!--                                <tr>-->
+                <!--                                    <th name="th_sml_product">-->
+                <!--                                        <strong>Product</strong>-->
+                <!--                                    </th>-->
+                <!--                                    <th name="lot_serial" t-if="has_serial_number"-->
+                <!--                                        groups="stock.group_lot_on_delivery_slip">-->
+                <!--                                        Lot/Serial Number-->
+                <!--                                    </th>-->
+                <!--                                    <th name="th_sml_quantity" class="text-center">-->
+                <!--                                        <strong>Quantity</strong>-->
+                <!--                                    </th>-->
+                <!--                                </tr>-->
+                <!--                            </thead>-->
+                <!--                            <tbody>-->
+                <!--                                <tr t-foreach="o.move_line_ids" t-as="move_line">-->
+                <!--                                    <td>-->
+                <!--                                        <span t-field="move_line.product_id"/>-->
+                <!--                                        <p t-if="move_line.move_id.description_picking != move_line.product_id.name">-->
+                <!--                                            <span t-field="move_line.move_id.description_picking"/>-->
+                <!--                                        </p>-->
+                <!--                                    </td>-->
+                <!--                                    <td t-if="has_serial_number and move_line.lot_id.name"-->
+                <!--                                        groups="stock.group_lot_on_delivery_slip">-->
+                <!--                                        <span t-field="move_line.lot_id.name"/>-->
+                <!--                                    </td>-->
+                <!--                                    <td t-elif="has_serial_number" groups="stock.group_lot_on_delivery_slip">-->
+                <!--                                        <span t-field="move_line.lot_name"/>-->
+                <!--                                    </td>-->
+                <!--                                    <td class="text-center">-->
+                <!--                                        <span t-field="move_line.qty_done"/>-->
+                <!--                                        <span t-field="move_line.product_uom_id"/>-->
+                <!--                                    </td>-->
+                <!--                                </tr>-->
+                <!--                            </tbody>-->
+                <!--                        </table>-->
+                <!--                        <p>-->
+                <!--                            <t t-if="o.backorder_ids and o.backorder_ids.filtered(lambda x: x.state not in ('done', 'cancel'))">-->
+                <!--                                All items couldn't be shipped, the remaining ones will be shipped as soon as they become-->
+                <!--                                available.-->
+                <!--                            </t>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+
+
+            </t>
+
+
+        </xpath>
+    </template>
+
+
+</odoo>

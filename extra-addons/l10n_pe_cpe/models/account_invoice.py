@@ -24,6 +24,9 @@ import socket
 from binascii import hexlify
 from functools import partial
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 TYPE2JOURNAL = {
     "out_invoice": "sale",
@@ -513,7 +516,9 @@ class AccountMove(models.Model):
         company_id = self.company_id.partner_id
 
     def post(self):
+        _logger.info("SIT post =antes de post")
         res = super(AccountMove, self).post()
+        _logger.info("SIT post res=%s", res)
         for invoice_id in self:
             invoice_id.internal_number = invoice_id.name
             invoice_id.action_date_assign()

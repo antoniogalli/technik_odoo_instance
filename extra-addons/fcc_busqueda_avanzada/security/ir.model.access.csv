@@ -1,0 +1,2 @@
+"id","name","model_id/id","group_id/id","perm_create","perm_unlink","perm_read","perm_write"
+fcc_busqueda_avanzada_config,fcc_busqueda_avanzada_config,model_fcc_busqueda_avanzada_config,,1,1,1,1

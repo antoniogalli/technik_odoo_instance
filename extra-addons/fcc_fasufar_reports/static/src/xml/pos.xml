@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="OrderReceipt">
+        <t t-jquery=".pos-receipt" t-operation="replace">
+            <div class="pos-receipt">
+            <style>
+                   .encabezado {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-family: Arial, sans-serif;
+                        }
+
+                        .encabezado th {
+                        background-color: #f0f0f0;
+                        text-align: center;
+                        padding: 10px;
+                        }
+
+                        .encabezado td {
+                        vertical-align: top;
+                        text-align: left;
+                        padding: 5px;
+                        border: 1px solid #000;
+                        }
+                        .justificado {
+                        text-align: justify;
+                        }
+                        .derecha {
+                        text-align: right;
+                        }
+
+                        table.blueTable {
+                        font-family: Arial, sans-serif;
+                    font-size: 13px;
+                        border: none;
+                        background-color: #ffffff;
+                        width: 100%;
+                        text-align: center;
+                        border-collapse: collapse;
+                        }
+                  table.blueTable td, table.blueTable th {
+                        vertical-align: top;
+                        font-size: 11px;
+                        padding: 2px 2px;
+                        }
+
+  table.ordelineTable {
+                        font-family: Arial, sans-serif;
+                    font-size: 10px;
+                        border: none;
+padding: 5px;
+                        background-color: #ffffff;
+                        width: 100%;
+                        text-align: left;
+                        border-collapse: collapse;
+                        }
+                  table.ordelineTable td, table.ordelineTable th {
+                     vertical-align: top;
+                        padding: 2px 2px;
+                        }
+
+                    .letra13 {
+                        font-family: Arial, sans-serif;
+                    font-size: 13px;
+                        border: none;
+                        background-color: #ffffff;
+                        width: 100%;
+                        text-align: center;
+                        border-collapse: collapse;
+                        }
+
+                </style>
+                <table class="blueTable" width="100%">
+                    <tr>
+<!--                        <td style="vertical-align: top;-->
+<!--                        text-align: left;">-->
+<!--                        <img class="pos-receipt-logo"-->
+<!--                             src='/fcc_fasufar_reports/static/src/img/qr2.png' alt="Logo"-->
+<!--                             style="width: 80px;"/>-->
+<!--                    </td>-->
+                        <td style="vertical-align: top;
+                        text-align: left;">
+                            <t t-if='receipt.company.name'>
+                                <b>  <t t-esc='receipt.company.name'/></b>
+                            </t>
+                            <t t-if='receipt.company.vat'>
+                                            <div>  <b> RUC:  </b>
+                                                <t t-esc='receipt.company.vat'/></div>
+                                        </t>
+                            <t t-if='receipt.company.phone'>
+                                            <div>  <b> Télf:  </b>
+                                                <t t-esc='receipt.company.phone'/></div>
+                                        </t>
+                            <t t-if='receipt.company.website'>
+                                            <div><t t-esc='receipt.company.website' /></div>
+                                        </t>
+                        </td></tr>
+
+
+
+
+</table>
+                <t t-if='receipt.company.street'>
+                                <div class="letra13" style="  text-align: left;">  <b> Dirección:  </b>
+                                    <t t-esc='receipt.company.street'/></div>
+                            </t>
+                <br/>
+                <t t-if='receipt.company.vat'>
+                                            <div class="pos-receipt-center-align"><b>BOLETA DE VENTA ELECTRONICA:<br/>
+                                                <t t-esc='receipt.name'/></b></div>
+                                        </t>
+                <br/>
+
+                <table class="blueTable" style="  text-align: left;">
+                <tr><td>
+                    <b>FECHA DE EMISION:</b>
+                    <t t-esc='receipt.date.localestring'/>
+
+                <br/>
+                    <b>CONDICION DE PAGO:</b>
+                    CONTADO
+                </td>
+                </tr>
+</table>
+
+                <table class="blueTable" style="  text-align: left;">
+                <tr>
+            <td>
+
+
+                <b>RAZON SOCIAL: </b>
+                <t t-esc='receipt.curr_client.name'/>
+                <br/>
+                <b>RUC: </b>
+                <t t-esc='receipt.curr_client.vat'/>
+                <br/>
+                <b>DIRECCION: </b>
+                <t t-esc='receipt.curr_client.street'/>
+                <br/>
+                <b>REFERENCIA: </b>
+                <br/>
+                <!--                <span class="content" t-field="o.partner_id.country_id.code"/>-->
+                <b>NO. VOUCHER: </b>
+                <br/>
+                <!--                <span class="content" t-field="o.partner_id.zip"/>-->
+                <b>NO. GUIA: </b>
+                <br/>
+                <!--                <span class="content" t-field="o.partner_id.zip"/>-->
+</td>
+
+        </tr>
+</table>
+
+
+                <!-- Orderlines -->
+                <t t-set='n' t-value='0'/>
+                <table class="ordelineTable">
+            <tr style="border-bottom: 2px solid #000; border-top: 2px solid #000;">
+                        <th width="5%">
+                        No.
+                        </th>
+                <th width="20%">
+                        COD
+                        </th>
+                <th width="35%">
+                        PRODUCTO
+                        </th>
+                <th width="20%">
+                        PRECIO
+                        </th>
+                <th width="20%">
+                        TOTAL
+                        </th>
+                    </tr>
+
+
+                    <t t-foreach='receipt.orderlines' t-as='line'>
+                        <t t-set='n' t-value='n+1'/>
+                        <tr>
+                        <td><t t-esc='n'/></td>
+                            <td><t t-esc='line.object_product_id.default_code'/></td>
+                            <td><t t-esc='line.object_product_id.display_name'/></td>
+                            <!--                            <td><t t-esc='widget.format_currency(line.price_display)'/></td>-->
+                            <!--                            <td><t t-esc='widget.format_currency(line.price_display)'/></td>-->
+
+                    </tr>
+                        <!--                        <t t-debug="pdb"/>-->
+                        <tr>
+                    <td colspan="3"><b>CANTIDAD : </b>
+                        <t t-esc="Math.round(line.quantity * Math.pow(10, pos.dp['Product Unit of Measure'])) / Math.pow(10, pos.dp['Product Unit of Measure'])"/>
+                        <t t-esc='line.unit_name'/>
+                    </td>
+
+                            <td> <t t-esc='widget.format_currency(line.price_display_one)'/></td>
+                            <td>  <t t-esc='widget.format_currency(line.price_display)'/></td>
+                </tr>
+                        <tr style="  border-bottom: 2px solid #000;">
+                    <td colspan="5">
+                       <t t-esc='line.object_product_id.description_sale'/>
+                    </td>
+                </tr>
+
+
+
+                            </t>
+            </table>
+                 <t t-if='taxincluded'>
+                        <t t-foreach='receipt.tax_details' t-as='tax'>
+                            <div class="pos-receipt-amount receipt-change">
+                                <t t-esc='tax.name'/>
+<!--                                <span t-esc='widget.format_currency(tax.amount)'-->
+<!--                                      class="pos-receipt-right-align"/>-->
+                            </div>
+                        </t>
+                </t>
+<table>
+    <tr>
+        <td width="30%" style="font-family: Arial, sans-serif;
+                    font-size: 10px;">* Después de 48 horas de recibido la mercadería se dará como aceptada/conforme.</td>
+        <td  width="70%" >
+            <table style="font-family: Arial, sans-serif;
+                    font-size: 12px;"><tr><td >OPERACION GRAVADA</td><td><span t-esc='widget.format_currency(receipt.subtotal)'
+                                       class="pos-receipt-right-align"/></td></tr>
+            <tr><td>OPERACIÓN INAFECTA</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+<tr><td>OPERACIÓN EXONERADA</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+<tr><td>OPERACIÓN GRATUITA</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+                <tr><td>TOTAL DESCUENTO</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+                <tr><td>ICBPER</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+                <tr><td>FLETE</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+                <tr><td>DESCUENTO ANTICIPO</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+                <tr><td>SUBTOTAL</td><td><span t-esc='widget.format_currency(0.00)'
+                                       class="pos-receipt-right-align"/></td></tr>
+ <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001'/>
+                 <tr><td>IGV(18%)</td><td><span t-esc='widget.format_currency(receipt.total_with_tax-receipt.subtotal)'
+                                       class="pos-receipt-right-align"/></td></tr>
+                 <tr><td>TOTAL</td><td><span t-esc='widget.format_currency(receipt.total_with_tax)'
+                                       class="pos-receipt-right-align"/></td></tr>
+
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+                <!-- Subtotal -->
+
+
+                <t t-if='!taxincluded'>
+                        <div class="pos-receipt-right-align">--------</div>
+                    <br/>
+                    <div>Subtotal</div>
+                    <t t-foreach='receipt.tax_details' t-as='tax'>
+                            <div class="pos-receipt-tax-line">
+                                <t t-esc='tax.name'/>
+                                <span t-esc='widget.format_currency(tax.amount)'
+                                      class="pos-receipt-right-align"/>
+                            </div>
+                        </t>
+                    </t>
+
+                <!-- Total -->
+
+                <br/>
+                <div class="pos-receipt-amount">
+                        Total
+                        <span t-esc='widget.format_currency(receipt.total_with_tax)' class="pos-receipt-right-align"/>
+                    </div>
+                <br/>
+                <br/>
+
+                <!-- Payment Lines -->
+
+<!--                <t t-foreach='paymentlines' t-as='line'>-->
+<!--                        <div class="pos-receipt-amount receipt-change">-->
+<!--                            <t t-esc='line.name'/>-->
+<!--                            <span t-esc='widget.format_currency(line.get_amount())'-->
+<!--                                  class="pos-receipt-right-align"/>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                <br/>-->
+
+<!--                <div class="pos-receipt-amount receipt-change">-->
+<!--                        Cambio-->
+<!--                        <span t-esc='widget.format_currency(receipt.change)' class="pos-receipt-right-align"/>-->
+<!--                    </div>-->
+<!--                <br/>-->
+
+                <!-- Extra Payment Info -->
+
+<!--                <t t-if='receipt.total_discount'>-->
+<!--                        <div class="pos-receipt-amount receipt-change">-->
+<!--                            Discounts-->
+<!--                            <span t-esc='widget.format_currency(receipt.total_discount)'-->
+<!--                                  class="pos-receipt-right-align"/>-->
+<!--                        </div>-->
+<!--                    </t>-->
+
+<!--                    <div class="pos-receipt-amount receipt-change">-->
+<!--                            Total Taxes-->
+<!--                            <span t-esc='widget.format_currency(receipt.total_tax)' class="pos-receipt-right-align"/>-->
+<!--                        </div>-->
+<!--                    </t>-->
+
+<!--              -->
+
+            </div>
+        </t>
+        </t>
+        </templates>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_payment_form2" model="ir.ui.view">
+            <field name="name">account.payment.form2</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr='//sheet[last()]' position="inside">
+
+                    <field name="journal_id_letradecambio" invisible="1"/>
+                    <group string="Letra de Cambio" attrs="{'invisible': [('journal_id_letradecambio', '=', False)]}">
+                        <field name="numero"/>
+                        <field name="referencia"/>
+                        <field name="lugargiro"/>
+                        <field name="fechagiro"/>
+                        <field name="fechavencimiento"/>
+                        <field name="aval_partner_id"/>
+                    </group>
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+</odoo>

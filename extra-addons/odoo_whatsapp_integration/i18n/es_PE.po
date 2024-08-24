@@ -1,0 +1,705 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* odoo_whatsapp_integration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-05 03:24+0000\n"
+"PO-Revision-Date: 2023-12-07 23:02-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_PE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,body_html:odoo_whatsapp_integration.whatsapp_invoice_template
+msgid ""
+"\n"
+"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"        <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                <div>\n"
+"                    Dear *${object.partner_id.name}*\n"
+"                </div>\n"
+"                <div>\n"
+"                    Here is your invoice *${object.name}* with amount *${format_amount(object.amount_total, object.currency_id)}*\n"
+"                    from ${object.company_id.name}.\n"
+"                </div>\n"
+"                <div>\n"
+"                    % if object.invoice_payment_state == 'paid':\n"
+"                        This invoice is already paid. Amount due is *${format_amount(object.amount_residual,object.currency_id)}*\n"
+"                    % else:\n"
+"                        Please remit payment at your earliest convenience. Amount due is *${format_amount(object.amount_residual,object.currency_id)}*\n"
+"                    % endif\n"
+"                </div>\n"
+"                The invoice date and time is \"${object.invoice_date}\"\n"
+"                <div>\n"
+"                    Your order details are as follows:\n"
+"                    <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.invoice_line_ids:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.quantity}* <br>\n"
+"                            *Price: ${id.price_unit}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"                If you have any questions, please feel free to contact us.\n"
+"        \n"
+"        "
+msgstr ""
+"\n"
+"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"        <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                <div>\n"
+"                    Estimado *${object.partner_id.name}*\n"
+"                </div>\n"
+"                <div>\n"
+"                    Aquí está tu factura. *${object.name}* con cantidad *${format_amount(object.amount_total, object.currency_id)}*\n"
+"                    de  ${object.company_id.name}.\n"
+"                </div>\n"
+"                <div>\n"
+"                    % if object.invoice_payment_state == 'paid':\n"
+"                        Esta factura ya está pagada. El monto adeudado es *${format_amount(object.amount_residual,object.currency_id)}*\n"
+"                    % else:\n"
+"                        Por favor remita el pago en el menor tiempo posible. El monto adeudado es *${format_amount(object.amount_residual,object.currency_id)}*\n"
+"                    % endif\n"
+"                </div>\n"
+"                La fecha y hora de la factura es \"${object.invoice_date}\"\n"
+"                <div>\n"
+"                    Los detalles de su pedido son los siguientes :\n"
+"                    <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.invoice_line_ids:\n"
+"                            *Producto: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.quantity}* <br>\n"
+"                            *Presio: ${id.price_unit}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"               Si tiene alguna pregunta, no dude en contactarnos.\n"
+"        \n"
+"        "
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,body_html:odoo_whatsapp_integration.whatsapp_purchase_template
+msgid ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"             <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"             <div>\n"
+"                Hello *${object.partner_id.name or ''}*,\n"
+"             </div>\n"
+"            % if object.state == 'draft' or object.state == 'sent':\n"
+"                This is about Request For Quotation (RFQ) *${object.name}* with amount *${format_amount(object.amount_total, object.currency_id)}*\n"
+"                <div>\n"
+"                    Quotation details are as follows: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.order_line:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.product_qty}* <br>\n"
+"                            *Price: ${id.price_subtotal}*<br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"            % else:\n"
+"                <div>\n"
+"                    Your Purchase Order Number *${object.name}* with amount *${format_amount(object.amount_total, object.currency_id)}* is Confirmed.\n"
+"                </div>\n"
+"                <div>\n"
+"                    Order confirmation date and time is \"${object.date_approve}\"\n"
+"                </div>\n"
+"                <div>\n"
+"                    Order details are as follows: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.order_line:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.product_qty}* <br>\n"
+"                            *Price: ${id.price_subtotal}*<br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"            % endif\n"
+"            <div>\n"
+"                We are expecting receipt of products on or before scheduled date <br/>\n"
+"                If you have any questions, please feel free to contact us.\n"
+"            </div>\n"
+"        \n"
+"        "
+msgstr ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"             <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"             <div>\n"
+"                Hola *${object.partner_id.name or ''}*,\n"
+"             </div>\n"
+"            % if object.state == 'draft' or object.state == 'sent':\n"
+"                Se trata de la Solicitud de Cotización (RFQ) *${object.name}* con cantidad *${format_amount(object.amount_total, object.currency_id)}*\n"
+"                <div>\n"
+"                    Los detalles de la cotización son los siguientes: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.order_line:\n"
+"                            *Productos: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.product_qty}* <br>\n"
+"                            *Precio: ${id.price_subtotal}*<br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"            % else:\n"
+"                <div>\n"
+"                    Su número de orden de compra *${object.name}* con cantidad *${format_amount(object.amount_total, object.currency_id)}* Está confirmada.\n"
+"                </div>\n"
+"                <div>\n"
+"                    La fecha y hora de confirmación del pedido es \"${object.date_approve}\"\n"
+"                </div>\n"
+"                <div>\n"
+"                    Los detalles del pedido son los siguientes:<br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.order_line:\n"
+"                            *Producto: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.product_qty}* <br>\n"
+"                            *Precio: ${id.price_subtotal}*<br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"            % endif\n"
+"            <div>\n"
+"                Esperamos la recepción de los productos en la fecha programada o antes. <br/>\n"
+"                Si tiene alguna pregunta, no dude en contactarnos..\n"
+"            </div>\n"
+"        \n"
+"        "
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,body_html:odoo_whatsapp_integration.whatsapp_sales_template
+msgid ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"         <div>\n"
+"            Hello *${object.partner_id.name or ''}*,\n"
+"         </div>\n"
+"         % if object.state == 'draft' or object.state == 'sent':\n"
+"            Your Quotation *${object.name}* with amount *${format_amount(object.amount_total, object.currency_id)}* is ready.\n"
+"            <div>\n"
+"                Your quotation date and time is \"${object.date_order}\"\n"
+"            </div>\n"
+"            <div>\n"
+"                Quotation details are as follows: <br>\n"
+"                % for each in object:\n"
+"                    % for id in each.order_line:\n"
+"                        *Product: ${id.product_id.name}* <br>\n"
+"                         *Qty: ${id.product_uom_qty}*<br>\n"
+"                         *Price: ${id.price_subtotal}*<br>\n"
+"                    % endfor\n"
+"                % endfor\n"
+"            </div>\n"
+"         % else:\n"
+"            <div>\n"
+"                Your Sale Order Number *${object.name}* with amount *${format_amount(object.amount_total, object.currency_id)}* is Confirmed.\n"
+"            </div>\n"
+"            <div>\n"
+"                Your order date and time is \"${object.date_order}\"\n"
+"            </div>\n"
+"            <div>\n"
+"                Your order details are as follows: <br>\n"
+"                % for each in object:\n"
+"                    % for id in each.order_line:\n"
+"                        *Product: ${id.product_id.name}* <br>\n"
+"                         *Qty: ${id.product_uom_qty}*<br>\n"
+"                         *Price: ${id.price_subtotal}*<br>\n"
+"                    % endfor\n"
+"                % endfor\n"
+"            </div>\n"
+"         % endif\n"
+"        <div>\n"
+"            If you have any questions, please feel free to contact us.\n"
+"        </div>\n"
+"        \n"
+"        "
+msgstr ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"         <div>\n"
+"            Hola *${object.partner_id.name or ''}*,\n"
+"         </div>\n"
+"         % if object.state == 'draft' or object.state == 'sent':\n"
+"            Su cotización *${object.name}* con cantidad *${format_amount(object.amount_total, object.currency_id)}* Esta lista.\n"
+"            <div>\n"
+"                La fecha y hora de su cotización es \"${object.date_order}\"\n"
+"            </div>\n"
+"            <div>\n"
+"                Los detalles de la cotización son los siguientes: <br>\n"
+"                % for each in object:\n"
+"                    % for id in each.order_line:\n"
+"                        *Producto: ${id.product_id.name}* <br>\n"
+"                         *Cantidad: ${id.product_uom_qty}*<br>\n"
+"                         *Inversion: ${id.price_subtotal}*<br>\n"
+"                    % endfor\n"
+"                % endfor\n"
+"            </div>\n"
+"         % else:\n"
+"            <div>\n"
+"                Su número de pedido de venta *${object.name}* con cantidad *${format_amount(object.amount_total, object.currency_id)}* Está confirmada\n"
+"            </div>\n"
+"            <div>\n"
+"                La fecha y hora de su pedido es \"${object.date_order}\"\n"
+"            </div>\n"
+"            <div>\n"
+"                Los detalles de su pedido son los siguientes: <br>\n"
+"                % for each in object:\n"
+"                    % for id in each.order_line:\n"
+"                        *Productos: ${id.product_id.name}* <br>\n"
+"                         *Cantidad: ${id.product_uom_qty}*<br>\n"
+"                         *Precio: ${id.price_subtotal}*<br>\n"
+"                    % endfor\n"
+"                % endfor\n"
+"            </div>\n"
+"         % endif\n"
+"        <div>\n"
+"             Si tiene alguna pregunta, no dude en contactarnos.\n"
+"        </div>\n"
+"        \n"
+"        "
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,body_html:odoo_whatsapp_integration.whatsapp_inventory_template
+msgid ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"         <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"         <div>\n"
+"            Hello *${object.partner_id.name or ''}*,\n"
+"         </div>\n"
+"         <div>\n"
+"             % if object.state == 'draft':\n"
+"                We have received your order *${object.name}*. It will be shipped soon\n"
+"                <div>\n"
+"                    Order details are as follows: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_ids_without_package:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.product_uom_qty}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"             % if object.state == 'confirmed':\n"
+"                Your order *${object.name}* is ready. It will be shipped soon\n"
+"                <div>\n"
+"                    Order details are as follows: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_line_ids_without_package:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.product_uom_qty}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"             % if object.state == 'assigned':\n"
+"                Your order *${object.name}* is ready. It will be shipped soon\n"
+"                <div>\n"
+"                    Order details are as follows: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_line_ids_without_package:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.product_uom_qty}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"             % if object.state == 'done':\n"
+"                Your order *${object.name}* is shipped.\n"
+"                <div>\n"
+"                    Order details are as follows: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_line_ids_without_package:\n"
+"                            *Product: ${id.product_id.name}* <br>\n"
+"                            *Qty: ${id.qty_done}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"         </div>\n"
+"         <div>\n"
+"            If you have any questions, please feel free to contact us.\n"
+"         </div>\n"
+"            </p>\n"
+"        \n"
+"        "
+msgstr ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">\n"
+"         <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"         <div>\n"
+"            Hola *${object.partner_id.name or ''}*,\n"
+"         </div>\n"
+"         <div>\n"
+"             % if object.state == 'draft':\n"
+"                Nosotros hemos recibido su pedido *${object.name}*. Será enviado pronto\n"
+"                <div>\n"
+"                    Los detalles del pedido son los siguientes:<br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_ids_without_package:\n"
+"                            *Productos: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.product_uom_qty}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"             % if object.state == 'confirmed':\n"
+"                Su pedido*${object.name}* está listo. Será enviado pronto\n"
+"                <div>\n"
+"                    Los detalles del pedido son los siguientes: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_line_ids_without_package:\n"
+"                            *Productos: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.product_uom_qty}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"             % if object.state == 'assigned':\n"
+"                Su pedido *${object.name}* está listo. Será enviado pronto\n"
+"                <div>\n"
+"                    Los detalles del pedido son los siguientes: <br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_line_ids_without_package:\n"
+"                            *Productos: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.product_uom_qty}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"             % if object.state == 'done':\n"
+"                Su orden *${object.name}* se envía.\n"
+"                <div>\n"
+"                    Los detalles del pedido son los siguientes:<br>\n"
+"                    % for each in object:\n"
+"                        % for id in each.move_line_ids_without_package:\n"
+"                            *Productos: ${id.product_id.name}* <br>\n"
+"                            *Cantidad: ${id.qty_done}* <br>\n"
+"                        % endfor\n"
+"                    % endfor\n"
+"                </div>\n"
+"             % endif\n"
+"         </div>\n"
+"         <div>\n"
+"            Si tiene alguna pregunta, no dude en contactarnos..\n"
+"         </div>\n"
+"            </p>\n"
+"        \n"
+"        "
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.res_config_settings_view_form_whatsapp
+msgid "Activate to unable Direct Whatsapp Message button"
+msgstr "Activar para no poder el botón de Mensaje Directo de Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.view_portal_share_form_inherit
+msgid "Add a note"
+msgstr "Añadir una nota"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_contact_wizard
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_multiple_message_wizard_form
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.res_config_settings_view_form_whatsapp
+msgid "Click to enable direct whatsapp message feature"
+msgstr "Haz clic para activar la función de mensajes directos de WhatsApp"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,subject:odoo_whatsapp_integration.whatsapp_contacts_template
+msgid "Contact Message Template"
+msgstr "Plantilla de mensaje de contacto"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__mobile
+msgid "Contact Number"
+msgstr "Número de contacto"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__create_uid
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__create_uid
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__create_uid
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__create_date
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__create_date
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__create_date
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_res_config_settings__group_send_sms
+msgid "Direct WhatsApp Message"
+msgstr "Mensaje directo de WhatsApp"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_inventory_order
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_invoice_order
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_purchase_order
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_sale
+msgid "Direct Whatsapp Message"
+msgstr "Mensaje directo de Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__display_name
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__display_name
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__display_name
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__id
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__id
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__id
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__id
+msgid "ID"
+msgstr "ID"
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,subject:odoo_whatsapp_integration.whatsapp_inventory_template
+msgid "Inventory Template"
+msgstr "Plantilla de inventario"
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,subject:odoo_whatsapp_integration.whatsapp_invoice_template
+msgid "Invoice Template"
+msgstr "Plantilla de factura"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message____last_update
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard____last_update
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact____last_update
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__write_uid
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__write_uid
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__write_uid
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por última vez por"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__write_date
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__write_date
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__write_date
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields.selection,name:odoo_whatsapp_integration.selection__portal_share__share_type__mail
+msgid "Mail"
+msgstr "E-mail"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_display_error_message__name
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__message
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__message
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__message
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.view_portal_share_form_inherit
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.warn_message_wizard
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__mobile_number
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__mobile_number
+msgid "Mobile"
+msgstr "Celular"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_portal_share__mobile_number
+msgid "Mobile Number"
+msgstr "Número de móvil"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.warn_message_wizard
+msgid "OK"
+msgstr "Ok"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.res_config_settings_view_form_whatsapp
+msgid "Odoo WhatsApp Integration"
+msgstr "Integración Odoo WhatsApp"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_portal_share__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: odoo_whatsapp_integration
+#: code:addons/odoo_whatsapp_integration/models/inventory_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/invoice_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/purchase_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/sale_fun.py:0
+#, python-format
+msgid "Please Select Orders of Unique Customers"
+msgstr "Seleccione pedidos de clientes únicos"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_portal_share
+msgid "Portal Sharing"
+msgstr "Compartir Portal"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de Compra"
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,subject:odoo_whatsapp_integration.whatsapp_purchase_template
+msgid "Purchase Template"
+msgstr "Plantilla de compra"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_multiple_contact__partner_id
+msgid "Recipient"
+msgstr "Destinatario"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__user_id
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard_contact__user_id
+msgid "Recipient Name"
+msgstr "Nombre del destinatario"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_sale_order
+msgid "Sales Order"
+msgstr "Pedidos de Venta"
+
+#. module: odoo_whatsapp_integration
+#: model:mail.template,subject:odoo_whatsapp_integration.whatsapp_sales_template
+msgid "Sales template"
+msgstr "Plantilla de ventas"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.view_portal_share_form_inherit
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_contact_wizard
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_multiple_message_wizard_form
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_wizard
+msgid "Send"
+msgstr "Enviar"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_inventory_order
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_invoice_order
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_purchase_order
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_demo_sale
+msgid "Send Custom Whatsapp Message"
+msgstr "Enviar un mensaje de Whatsapp personalizado"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_button
+msgid "Send WhatsApp Message"
+msgstr "Enviar mensaje de WhatsApp"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_wizard
+msgid "Send Whatsapp Message"
+msgstr "Enviar mensaje de Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_portal_share__share_type
+msgid "Share With"
+msgstr "Compartir con"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__template_id
+msgid "Use template"
+msgstr "Utilizar plantilla"
+
+#. module: odoo_whatsapp_integration
+#: model:res.groups,name:odoo_whatsapp_integration.group_send_sms
+msgid "WhatsApp Direct SMS"
+msgstr "WhatsApp Direct SMS"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields.selection,name:odoo_whatsapp_integration.selection__portal_share__share_type__whatsapp
+msgid "Whatsapp"
+msgstr "Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.res_config_settings_view_form_whatsapp
+msgid "Whatsapp Direct Message"
+msgstr "Mensaje directo de Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: code:addons/odoo_whatsapp_integration/models/contacts_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/inventory_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/invoice_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/purchase_fun.py:0
+#: code:addons/odoo_whatsapp_integration/models/sale_fun.py:0
+#: model:ir.actions.server,name:odoo_whatsapp_integration.action_whatsapp_message
+#: model:ir.actions.server,name:odoo_whatsapp_integration.action_whatsapp_message_inventory
+#: model:ir.actions.server,name:odoo_whatsapp_integration.action_whatsapp_message_invoice
+#: model:ir.actions.server,name:odoo_whatsapp_integration.action_whatsapp_message_purchase
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_contact_wizard
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_multiple_message_wizard_form
+#, python-format
+msgid "Whatsapp Message"
+msgstr "Mensaje de Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_contact_wizard
+#: model_terms:ir.ui.view,arch_db:odoo_whatsapp_integration.whatsapp_wizard
+msgid "Whatsapp Number"
+msgstr "Número de Whatsapp"
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_display_error_message
+msgid "display.error.message"
+msgstr ""
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model.fields,field_description:odoo_whatsapp_integration.field_whatsapp_wizard__model
+msgid "mail.template.model_id"
+msgstr ""
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_whatsapp_wizard
+msgid "whatsapp.wizard"
+msgstr ""
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_whatsapp_wizard_contact
+msgid "whatsapp.wizard.contact"
+msgstr ""
+
+#. module: odoo_whatsapp_integration
+#: model:ir.model,name:odoo_whatsapp_integration.model_whatsapp_wizard_multiple_contact
+msgid "whatsapp.wizard.multiple.contact"
+msgstr ""

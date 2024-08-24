@@ -5,6 +5,8 @@ from base64 import b64decode, b64encode
 from lxml import etree
 from datetime import datetime
 
+import logging
+log = logging.getLogger(__name__)
 
 class PeSunatEguide(models.Model):
     _name = 'pe.eguide'
@@ -142,6 +144,7 @@ class PeSunatEguide(models.Model):
         if not self.xml_document and self.type != "low":
             file_name = self.get_document_name()
             xml_document = get_document(self)
+            log.info("SIT xml_document = %s", xml_document)
             self.xml_document = xml_document
             self.datas = b64encode(xml_document)
             self.datas_fname = file_name+".xml"
@@ -177,9 +180,10 @@ class PeSunatEguide(models.Model):
             self.datas = b64encode(xml_document)
             self.datas_fname = file_name+".xml"
             self._sign_eguide()
+            print("SIT", xml_document)
         if self.xml_document.encode('utf-8') != b64decode(self.datas):
+            print("SIT", self.datas)
             self._sign_eguide()
-
         client = self.prepare_sunat_auth()
         document = {}
         document['document_name'] = file_name

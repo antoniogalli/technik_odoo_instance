@@ -1,0 +1,394 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="paperformat_letracambio" model="report.paperformat">
+        <field name="name">European A4 landscape</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">1</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+    <report
+            id="action_report_letra_cambio"
+            string="Letra de Cambio"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="fcc_fasufar_reports.letra_cambio"
+            name="fcc_fasufar_reports.letra_cambio"
+            paperformat="fcc_fasufar_reports.paperformat_letracambio"
+            print_report_name="'Letra de Cambio - %s' % (object.name)"
+    />
+
+
+    <template id="letra_cambio">
+
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <style>
+                        .numero {
+                        position: absolute;
+                        top: 140px;
+                        left: 265px;
+                        width: 90px;
+                        height: 50px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+                        }
+                        .referencia {
+                        position: absolute;
+                        top: 140px;
+                        left: 365px;
+                        width: 110px;
+                        height: 50px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+
+                        .fechagiro_dia {
+                        position: absolute;
+                        top: 165px;
+                        left: 485px;
+                        width: 37px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+
+                        .fechagiro_mes {
+                        position: absolute;
+                        top: 165px;
+                        left: 530px;
+                        width: 40px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+
+                        .fechagiro_anio {
+                        position: absolute;
+                        top: 165px;
+                        left: 580px;
+                        width: 50px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+                        .lugargiro {
+                        position: absolute;
+                        top: 140px;
+                        left: 650px;
+                        width: 90px;
+                        height: 50px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+
+
+                        .fechavencimiento_dia {
+                        position: absolute;
+                        top: 165px;
+                        left: 750px;
+                        width: 37px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+
+                        .fechavencimiento_mes {
+                        position: absolute;
+                        top: 165px;
+                        left: 795px;
+                        width: 40px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+
+                        .fechavencimiento_anio {
+                        position: absolute;
+                        top: 165px;
+                        left: 840px;
+                        width: 50px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+                        .amount {
+                        position: absolute;
+                        top: 140px;
+                        left: 910px;
+                        width: 170px;
+                        height: 50px;
+                        vertical-align: middle;
+                        text-align: center;
+                        #background-color: #ff0000;
+
+                        }
+                        .cantidadletras {
+                        position: absolute;
+                        top: 228px;
+                        left: 265px;
+                        width: 820px;
+                        height: 25px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 12px;
+                        }
+                        .aceptante {
+                        position: absolute;
+                        top: 290px;
+                        left: 340px;
+                        width: 330px;
+                        height: 35px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 14px;
+                        }
+                        .aceptante_direccion {
+                        position: absolute;
+                        top: 330px;
+                        left: 340px;
+                        width: 330px;
+                        height: 30px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 12px;
+                        }
+                        .aceptante_localidad {
+                        position: absolute;
+                        top: 365px;
+                        left: 500px;
+                        width: 165px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 12px;
+                        }
+                        .aceptante_telefono {
+                        position: absolute;
+                        top: 390px;
+                        left: 540px;
+                        width: 120px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 12px;
+                        }
+                        .aceptante_vat {
+                        position: absolute;
+                        top: 390px;
+                        left: 340px;
+                        width: 120px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 12px;
+                        }
+
+
+                        .aval {
+                        position: absolute;
+                        top: 430px;
+                        left: 360px;
+                        width: 310px;
+                        height: 18px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 11px;
+                        }
+                        .aval_direccion {
+                        position: absolute;
+                        top: 450px;
+                        left: 320px;
+                        width: 345px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 11px;
+                        }
+                        .aval_localidad {
+                        position: absolute;
+                        top: 473px;
+                        left: 320px;
+                        width: 120px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 11px;
+                        }
+                        .aval_telefono {
+                        position: absolute;
+                        top: 473px;
+                        left: 500px;
+                        width: 120px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 12px;
+                        }
+                        .aval_vat {
+                        position: absolute;
+                        top: 503px;
+                        left: 320px;
+                        width: 120px;
+                        height: 20px;
+                        vertical-align: middle;
+                        text-align: left;
+                        #background-color: #ff0000;
+                        font-size: 11px;
+                        }
+                    </style>
+                    <t t-if="doc.journal_id_letradecambio">
+                        <div style="background-image: url('/fcc_fasufar_reports/static/src/img/fasufar.png');
+                                    background-size: 1100px;
+                                    width: 1100;
+                                    height: 850px;">
+                            <div class="numero">
+                                <span t-field="doc.numero"/>
+                            </div>
+
+
+                            <div class="referencia">
+                                <span t-field="doc.referencia"/>
+                            </div>
+                            <t t-set="dia_fechagiro" t-value="doc.fechagiro.day"/>
+                            <t t-set="dia_fechagiro_con_dos_digitos" t-value="'%02d' % dia_fechagiro"/>
+
+                            <t t-set="mes_fechagiro" t-value="doc.fechagiro.month"/>
+                            <t t-set="mes_fechagiro_con_dos_digitos" t-value="'%02d' % mes_fechagiro"/>
+
+                            <t t-set="anio_fechagiro" t-value="doc.fechagiro.year"/>
+
+                            <div class="fechagiro_dia">
+                                <span t-esc="dia_fechagiro_con_dos_digitos"/>
+                            </div>
+                            <div class="fechagiro_mes">
+                                <span t-esc="mes_fechagiro_con_dos_digitos"/>
+                            </div>
+                            <div class="fechagiro_anio">
+                                <span t-esc="anio_fechagiro"/>
+                            </div>
+                            <div class="lugargiro">
+                                <span t-field="doc.lugargiro"/>
+
+                            </div>
+
+
+                            <t t-set="dia_fechavencimiento" t-value="doc.fechavencimiento.day"/>
+                            <t t-set="dia_fechavencimiento_con_dos_digitos" t-value="'%02d' % dia_fechavencimiento"/>
+
+                            <t t-set="mes_fechavencimiento" t-value="doc.fechavencimiento.month"/>
+                            <t t-set="mes_fechavencimiento_con_dos_digitos" t-value="'%02d' % mes_fechavencimiento"/>
+
+                            <t t-set="anio_fechavencimiento" t-value="doc.fechavencimiento.year"/>
+
+                            <div class="fechavencimiento_dia">
+                                <span t-esc="dia_fechavencimiento_con_dos_digitos"/>
+                            </div>
+                            <div class="fechavencimiento_mes">
+                                <span t-esc="mes_fechavencimiento_con_dos_digitos"/>
+                            </div>
+                            <div class="fechavencimiento_anio">
+                                <span t-esc="anio_fechavencimiento"/>
+                            </div>
+                            <div class="amount">
+                                <span t-field="doc.amount"/>
+                            </div>
+
+                            <div class="cantidadletras">
+                                <span t-field="doc.check_amount_in_words"/>
+                            </div>
+
+                            <div class="aceptante">
+                                <span t-field="doc.partner_id.name"/>
+                            </div>
+                            <div class="aceptante_direccion">
+                                <span t-field="doc.partner_id.street"/>
+                            </div>
+                            <div class="aceptante_localidad">
+                                <span t-field="doc.partner_id.l10n_pe_district"/>
+                            </div>
+                            <div class="aceptante_vat">
+                                <span t-field="doc.partner_id.vat"/>
+                            </div>
+                            <div class="aceptante_telefono">
+                                <span t-field="doc.partner_id.phone"/>/
+                                <span t-field="doc.partner_id.mobile"/>
+                            </div>
+
+                            <div class="aval">
+                                <span t-field="doc.aval_partner_id.name"/>
+                            </div>
+                            <div class="aval_direccion">
+                                <span t-field="doc.aval_partner_id.street"/>
+                            </div>
+                            <div class="aval_localidad">
+                                <span t-field="doc.aval_partner_id.l10n_pe_district"/>
+                            </div>
+                            <div class="aval_vat">
+                                <span t-field="doc.aval_partner_id.vat"/>
+                            </div>
+                            <div class="aval_telefono">
+                                <span t-field="doc.aval_partner_id.phone"/>/
+                                <span t-field="doc.aval_partner_id.mobile"/>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+                    </t>
+                </div>
+
+            </t>
+        </t>
+
+    </template>
+</odoo>
+
+

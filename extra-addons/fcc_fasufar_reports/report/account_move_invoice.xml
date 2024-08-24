@@ -1,0 +1,743 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record id="paperformata4_portrait_factura" model="report.paperformat">
+        <field name="name">Factura A4 Portrait Apromed</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">110</field>
+    </record>
+
+    <report
+            id="action_report_account_invoice"
+            string="Documento Electrónico de Venta (FACTURA APROMED)"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="fcc_fasufar_reports.report_invoice"
+            name="fcc_fasufar_reports.report_invoice"
+            paperformat="fcc_fasufar_reports.paperformata4_portrait_factura"
+            print_report_name="(object.state == 'draft' and 'Borrador Documento Electrónico - %s' % (object.name) or
+                'Documento Electrónico - %s' % (object.name))"
+    />
+    <template id="report_invoice">
+
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="doc.type!='out_invoice'">
+                    <div class="page">
+                        <h1>NO ES UN DOCUMENTO ELECTRÓNICO DE VENTA</h1>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="page">
+                        <style>.encabezado {
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-family: Arial, sans-serif;
+                            }
+
+                            .encabezado th {
+                            background-color: #f0f0f0;
+                            text-align: center;
+                            padding: 10px;
+                            }
+
+                            .encabezado td {
+                            vertical-align: top;
+                            text-align: left;
+                            padding: 5px;
+                            border: 1px solid #000;
+                            }
+                            .justificado {
+                            text-align: justify;
+                            }
+                            .derecha {
+                            text-align: right;
+                            }
+
+                            table.blueTable {
+                            font-family: Arial, sans-serif;
+                            border: none;
+                            background-color: #ffffff;
+                            width: 100%;
+                            text-align: center;
+                            border-collapse: collapse;
+                            }
+                            table.blueTable td, table.blueTable th {
+                            border: none;
+                            padding: 3px 3px;
+                            }
+                            table.blueTable tbody td {
+                            vertical-align: top;
+                            font-size: 13px;
+
+                            text-align: left;
+                            }
+                            table.blueTable tr:nth-child(even) {
+                            background: #eeeeee;
+                            }
+                            table.blueTable thead {
+                            background: #9db1df;
+                            border: none;
+                            }
+                            table.blueTable thead th {
+                            font-size: 15px;
+
+
+                            text-align: center;
+                            border: none;
+                            }
+                            table.blueTable thead th:first-child {
+                            border-left: none;
+                            }
+
+                            table.blueTable tfoot td {
+                            font-size: 14px;
+                            background: #9db1df;
+                            text-align: right;
+
+                            }
+                            table.blueTable tfoot .links {
+                            text-align: right;
+                            }
+                            table.blueTable tfoot .links a{
+                            display: inline-block;
+                            background: #1C6EA4;
+                            color: #FFFFFF;
+                            padding: 2px 8px;
+                            border: none;
+                            }
+
+
+                            table.whiteTable {
+                            font-family: Arial, sans-serif;
+                            font-size: 13px;
+                            border: none;
+                            padding: 5px;
+                            background-color: #ffffff;
+                            width: 100%;
+                            text-align: left;
+                            border-collapse: collapse;
+                            }
+                            table.whiteTable td, table.whiteTable th {
+                            border: none;
+                            vertical-align: top;
+
+                            }
+
+                            table.greenTable {
+                            font-family: Arial, sans-serif;
+                            border: none;
+                            background-color: #ffffff;
+                            width: 100%;
+                            text-align: center;
+                            border-collapse: collapse;
+                            }
+                            table.greenTable td{
+                            border: none;
+                            padding: 3px 3px;
+                            }
+                            table.greenTable th {
+                            border: none;
+                            padding: 3px 3px;
+                            text-align: center;
+                            background-color: #12428d;
+                            color:white;
+                            }
+
+                            table.greenTable tbody td {
+                            vertical-align: top;
+                            font-size: 13px;
+
+                            text-align: left;
+                            }
+                            table.greenTable tr:nth-child(even) {
+                            background: #9db1df;
+                            }
+                            table.greenTable thead {
+                            background: #9db1df;
+                            border: none;
+                            }
+                            table.greenTable thead th {
+                            font-size: 15px;
+
+
+                            text-align: center;
+                            border: none;
+                            }
+                            table.greenTable thead th:first-child {
+                            border-left: none;
+                            }
+
+                            table.greenTable tfoot td {
+                            font-size: 14px;
+                            background: #9db1df;
+                            text-align: right;
+
+                            }
+                            table.greenTable tfoot .links {
+                            text-align: right;
+                            }
+                            table.greenTable tfoot .links a{
+                            display: inline-block;
+                            background: #1C6EA4;
+                            color: #FFFFFF;
+                            padding: 2px 8px;
+                            border: none;
+                            }
+                            .tabla-container {
+                            border: 1px solid #3c63bf;
+                            border-radius: 15px;
+                            overflow: hidden;
+                            padding: 10px 10px;
+                            }
+                            .th-container {
+                            border: none; /* Agrega un borde a la tabla */
+                            border-radius: 15px; /* Borde redondeado a 15px */
+                            overflow: hidden; /* Evita que los bordes se extiendan más allá de los bordes redondeados */
+                            padding: 10px 10px;
+                            background: #9db1df;
+                            }
+
+                        </style>
+
+
+                        <table class="whiteTable" style="        width:100%">
+                            <tr>
+                                <td style="   width:25% ; padding: 10px 20px;">
+                                    <img style="max-height: 80px;  max-width: 300px; vertical-align: top;"
+                                         t-att-src="'data:image/png;base64,%s' % to_text(doc.company_id.logo) or to_text(company.logo)"
+                                         t-if="doc.company_id.logo"/>
+                                </td>
+                                <td style="  width:40% ">
+                                    <div style=" padding: 10px 10px; font-size : 14px; text-align: center;">
+                                        <b>
+                                            <span t-field="doc.company_id.report_header"/>
+                                        </b>
+                                    </div>
+                                </td>
+                                <td style="width:5% ; vertical-align: top;   padding: 10px 20px;"
+                                    rowspan="2">
+
+                                </td>
+                                <td style="   width:30%    padding: 5px 5px;   text-align: center; "
+                                    rowspan="3">
+
+                                    <table class="greenTable" style="  width:100% ">
+                                        <tr>
+                                            <th colspan="2">
+                                                <strong>RUC:
+                                                    <t t-esc="doc.company_id.vat"/>
+                                                </strong>
+                                            </th>
+                                        </tr>
+                                        <tr>
+
+                                            <td t-attf-style="padding-top: 10px; padding-bottom: 10px; text-align:center;  background-color: #ffffff; "
+                                                colspan="2">
+                                                <t t-set="document_type_code" t-value="doc.journal_id.pe_invoice_code"/>
+                                                <t t-set="document_type_text" t-value="'FACTURA '"/>
+                                                <t t-if="document_type_code == '03'">
+                                                    <t t-set="document_type_text" t-value="'BOLETA '"/>
+                                                </t>
+                                                <t t-if="document_type_code == '07'">
+                                                    <t t-set="document_type_text" t-value="'NOTA DE CRÉDITO '"/>
+                                                </t>
+                                                <t t-if="document_type_code == '09'">
+                                                    <t t-set="document_type_text" t-value="'NOTA DE DÉBITO '"/>
+                                                </t>
+                                                <t t-if="document_type_code == '10'">
+                                                    <t t-set="document_type_text" t-value="'GUÍA DE REMISIÓN '"/>
+                                                </t>
+
+
+                                                <div t-attf-style="color: #{doc.company_id and doc.company_id.company_color or '#ffffff'};">
+
+                                                    <strong>
+
+                                                        <t t-esc="document_type_text"/>
+                                                        ELECTRÓNICA
+
+                                                    </strong>
+                                                </div>
+                                                <img style="max-height: 150px;  vertical-align: top;"
+                                                     t-att-src="'data:image/png;base64,%s' % to_text(doc.sunat_qr_code) "
+                                                     t-if="doc.sunat_qr_code"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">
+                                                <span t-field="doc.name"/>
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <b>Página Web :</b>
+                                                <span t-field="doc.company_id.partner_id.website"/>F003
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table class="whiteTable">
+                                        <tr>
+                                            <td>
+                                                <b>RAZON SOCIAL :</b>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.company_id.partner_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>DOMICILIO FISCAL :</b>
+                                            </td>
+                                            <td colspan="3">
+                                                <span t-field="doc.company_id.partner_id.street"/>
+                                                <br/>
+                                                <span t-field="doc.company_id.partner_id.street2"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>CENTRAL TELEFONICA :</b>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.company_id.partner_id.phone"/>
+                                            </td>
+                                            <td>
+                                                <b>Teléfono móvil - Whatsapp :</b>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.company_id.partner_id.mobile"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>VENDEDOR :</b>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.user_id.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                <b>Correo :</b>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.company_id.partner_id.email"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>Establecimiento Emisor :</b>
+                                            </td>
+                                            <td colspan="3">
+                                                Preguntar de DOnde
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="tabla-container">
+                                        <table class="whiteTable">
+                                            <tr>
+                                                <td colspan="3">
+                                                    <b>
+                                                        RUC:
+                                                    </b>
+                                                    <t t-if="doc.partner_id.parent_id">
+                                                        <span t-field="doc.partner_id.parent_id.vat"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="doc.partner_id.vat"/>
+                                                    </t>
+                                                    <b>
+                                                        Razón Social:
+                                                    </b>
+                                                    <t t-if="doc.partner_id.parent_id">
+                                                        <span t-field="doc.partner_id.parent_id.name"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="doc.partner_id.name"/>
+                                                    </t>
+
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <b>
+                                                        Dirección:
+                                                    </b>
+                                                    <t t-if="doc.partner_id.parent_id">
+                                                        <span t-field="doc.partner_id.parent_id.street"/>
+                                                        <span t-field="doc.partner_id.parent_id.street2"/>
+                                                        <span t-field="doc.partner_id.parent_id.state_id.name"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="doc.partner_id.street"/>
+                                                        <span t-field="doc.partner_id.street2"/>
+                                                        <span t-field="doc.partner_id.state_id.name"/>
+                                                    </t>
+                                                    <b>CODIGO:</b>
+                                                    <t t-if="doc.partner_id.parent_id">
+                                                        <span t-field="doc.partner_id.parent_id.ref"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-field="doc.partner_id.ref"/>
+                                                    </t>
+                                                </td>
+
+
+                                            </tr>
+
+                                            <tr>
+
+
+                                                <td>
+                                                    <b>
+                                                        FECHA DE EMISION :
+                                                    </b>
+                                                    <span t-field="doc.invoice_date"/>
+                                                </td>
+                                                <td>
+                                                    <b>CONDICION DE PAGO:</b>
+                                                    <span t-field="doc.condicionpago"/>
+
+                                                </td>
+                                                <td>
+                                                    <b>FECHA DE VENCIMIENTO:</b>
+                                                    <span t-field="doc.invoice_date_due"/>
+
+
+                                                </td>
+
+                                                <td>
+                                                    <b>MONEDA:</b>
+                                                    <span t-field="doc.currency_id.name"/>
+                                                </td>
+
+
+                                            </tr>
+
+                                            <tr>
+
+
+                                                <td>
+                                                    <b>
+                                                        Referencia:
+                                                    </b>
+                                                    <span t-field="doc.client_order_ref"/>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        Nº PEDIDO DE COMPRA:
+                                                    </b>
+                                                    <span t-field="doc.invoice_origin"/>
+                                                </td>
+
+                                                <td>
+                                                    <b>GUÍA DE REMISION :</b>
+                                                    <span t-field="doc.guiaremision"/>
+                                                </td>
+
+
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <!-- Is there a discount on at least one line? -->
+
+
+                        <table class="blueTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left" style=" border-top-left-radius: 10px;
+                                 border-bottom-left-radius: 10px;
+  border: none;
+  padding: 10px;">No.
+                                    </th>
+                                    <th class="text-right">CODIGO</th>
+                                    <th class="text-right">DESCRIPCION DEL PRODUCTO</th>
+                                    <th class="text-right">FORMA FARMAC.</th>
+                                    <th class="text-right" colspan="2">PRESENTACION</th>
+                                    <th class="text-right">LOTE</th>
+                                    <th class="text-right">F.VENC.</th>
+                                    <th class="text-right">MARCA</th>
+
+                                    <th class="text-right">CANT</th>
+                                    <th class="text-right">U/MED</th>
+                                    <th class="text-right">P/UNIT</th>
+                                    <th class="text-right" style=" border-top-right-radius: 10px;
+                                 border-bottom-right-radius: 10px;
+  border: none;
+  padding: 10px;">TOTAL
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+                                <t t-set="n" t-value="0"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <t t-if="line.product_id">
+                                        <t t-set="n" t-value="n+1"/>
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
+                                           groups="account.group_show_line_subtotals_tax_excluded"/>
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
+                                           groups="account.group_show_line_subtotals_tax_included"/>
+
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                            <t t-if="not line.display_type">
+                                                <td>
+                                                    <span t-esc="n"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.product_id.default_code"/>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        <span t-esc="line.product_id.name"/>
+                                                    </b>
+                                                    <br/>
+                                                    <span t-esc="line.product_id.pharmaceutical_composition"/>
+
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.product_id.pharmaceutical_form.name"/>
+
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.product_id.dosage.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.product_id.quantity_per_presentation"/>
+
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.lote"/>
+
+                                                </td>
+                                                <td>
+
+                                                    <span t-esc="line.fechavencimiento"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.product_id.batch"/>
+
+                                                </td>
+
+
+                                                <td name="td_quantity" class="text-right">
+                                                    <span t-field="line.quantity"/>
+
+                                                </td>
+                                                <td>
+                                                    <span t-field="line.product_uom_id"/>
+                                                </td>
+                                                <td name="td_priceunit" style="text-align: right;">
+                                                    <span t-field="line.price_unit"/>
+                                                </td>
+
+                                                <td name="td_subtotal" style="text-align: right;">
+                                                    <span t-field="line.price_subtotal"
+                                                    />
+                                                    <!--                                                    <span t-field="line.price_total"-->
+                                                    <!--                                                          groups="account.group_show_line_subtotals_tax_included"/>-->
+                                                </td>
+                                            </t>
+
+                                        </tr>
+                                    </t>
+                                    <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section')">
+                                        <tr class="is-subtotal text-right">
+                                            <td name="td_section_subtotal" colspan="99">
+                                                <strong class="mr16">Subtotal</strong>
+
+                                                <span
+                                                        t-esc="current_subtotal"
+                                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'
+                                                />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="8" style="text-align: left; border-top-left-radius: 10px;
+                                 border-bottom-left-radius: 10px;
+  border: none;
+  padding: 10px;">SON:
+                                        <span t-field="doc.amount_to_text"/>
+                                        SOLES (S.E.U.O)
+                                    </td>
+                                    <td colspan="3">
+                                        <b>OPERACION GRAVADA</b>
+                                    </td>
+
+
+                                    <td colspan="2" class="derecha" style=" border-top-right-radius: 10px;
+                                 border-bottom-right-radius: 10px;
+  border: none;
+  padding: 10px;">
+                                        <span t-esc="doc.gravada"/>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 30%; vertical-align: top;">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <b>OBSERVACION:</b>
+                                            </td>
+                                            <td>
+                                                SUNAT
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                LA
+                                                <t t-esc="document_type_text"/>
+                                                N°<span t-field="doc.name"/>, HA SIDO ACEPTADA
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <span t-field="doc.observacion"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 3%;"></td>
+                                <td style="width: 30%; vertical-align: top;">
+                                    <table class="greenTable">
+                                        <tr>
+                                            <th>
+                                                N° CUOTA:
+                                            </th>
+                                            <th>
+                                                FECHA VENC
+                                            </th>
+                                            <th>
+                                                MONTO
+                                            </th>
+
+                                        </tr>
+                                        <t t-foreach="doc.line_ids" t-as="receivable">
+                                            <t t-set="nn" t-value="0"/>
+                                            <t t-if="receivable.account_internal_type=='receivable'">
+                                                <tr>
+                                                    <t t-set="nn" t-value="nn+1"/>
+                                                    <td>
+                                                        <span t-esc="nn"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="receivable.date_maturity"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="receivable.debit"/>
+                                                    </td>
+
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+
+                                </td>
+                                <td style="width: 4%;"></td>
+                                <td style="width: 30%;   vertical-align: top;">
+                                    <table class="blueTable" width="100%">
+
+                                        <t t-as="amount_by_group" t-foreach="doc.amount_by_group">
+                                            <tr>
+                                                <t t-if="len(doc.line_ids.filtered(lambda line: line.tax_line_id)) == 1 and doc.amount_untaxed == amount_by_group[2]">
+                                                    <td class="left" colspan="2"
+                                                        t-att-style="'padding:9px 10px 7px 0px;'">
+                                                        <span t-esc="amount_by_group[0]"/>
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <span t-esc="amount_by_group[3]"/>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td class="left" colspan="2"
+                                                        t-att-style="'padding:9px 10px 7px 0px;'">
+                                                        <span t-esc="amount_by_group[0]"/>
+                                                        <span>&amp;nbsp;
+                                                            <span>en</span>
+                                                            <t t-esc="amount_by_group[4]"/>
+                                                        </span>
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <span t-esc="amount_by_group[3]"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td colspan="3" style="border-bottom:1px solid #959595"/>
+                                        </tr>
+                                        <tr id="total">
+                                            <td class="left" colspan="2"
+                                                t-att-style="'padding:9px 10px 7px 0px;  text-transform:uppercase; '">
+                                                Total
+                                            </td>
+                                            <td style="text-align: right;">
+                                                <span t-field="doc.amount_total"
+                                                      t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                Para consultar sus comprobantes electrónicos ingrese a:
+                                                www.facturacion.fasufar.com
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td width="75%" style=" vertical-align: top;">
+
+                                </td>
+
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </t>
+            </t>
+        </t>
+
+    </template>
+</odoo>
+
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="fcc_busqueda_avanzada_config_form_view" model="ir.ui.view">
+            <field name="name">fcc.busqueda.avanzada.config.form</field>
+            <field name="model">fcc.busqueda.avanzada.config</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="model_id" options="{'no_create':True,'no_edit':True,'no_open':True}"/>
+                            <field name="field_ids" widget="many2many_tags"
+                                   domain="[('id','in',all_field_ids),('store','=',True),]"
+                                   options="{'no_create':True,'no_edit':True,'no_open':True}"/>
+                            <field name="all_field_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="type_search"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="fcc_busqueda_avanzada_config_tree_view" model="ir.ui.view">
+            <field name="name">fcc.busqueda.avanzada.config.tree</field>
+            <field name="model">fcc.busqueda.avanzada.config</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="model_id"/>
+                    <field name="field_ids" widget="many2many_tags"/>
+                        <field name="type_search"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='fcc_busqueda_avanzada_config_search_view' model='ir.ui.view'>
+            <field name='name'>fcc.busqueda.avanzada.config.search</field>
+            <field name='model'>fcc.busqueda.avanzada.config</field>
+            <field name='arch' type='xml'>
+                <search string=''>
+                    <field name="model_id"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="fcc_busqueda_avanzada_config_window_action" model="ir.actions.act_window">
+            <field name="name">Configuración Búsqueda Avanzada</field>
+            <field name="res_model">fcc.busqueda.avanzada.config</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem
+                id="fcc_busqueda_avanzada_menu"
+                name="Búsqueda Avanzada"
+                parent="base.menu_administration"
+                action="fcc_busqueda_avanzada_config_window_action"
+                sequence="10"
+                groups="fcc_busqueda_avanzada.fcc_busqueda_avanzada_group"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_fasufar" model="ir.ui.view">
+        <field name="name">sale.purchase.order.form.fasufar</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="description" string="Descripción Pedido">
+                    <group>
+
+                        <group string="Condiciones Comerciales">
+                              <field name="grupodecompra"/>
+                            <field name="moneda"/>
+                            <field name="condicionpago"/>
+                            <field name="moneda"/>
+                            <field name="firma1"/>
+                            <field name="firma2"/>
+
+                        </group>
+                        <group>
+                              <field name="ordengravada"/>
+
+                        </group>
+
+                    </group>
+                </page>
+
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>       

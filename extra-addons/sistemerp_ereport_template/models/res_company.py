@@ -172,6 +172,7 @@ class ResCompany(models.Model):
 
         # colorize user avatars
         if not is_company:
+            return
             image = tools.image_colorize(image)
 
         return tools.image_resize_image_big(base64.b64encode(image))

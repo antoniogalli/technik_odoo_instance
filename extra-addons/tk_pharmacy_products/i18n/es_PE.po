@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tk_pharmacy_products
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20221005\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-01 17:46+0000\n"
+"PO-Revision-Date: 2023-08-01 17:46+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tk_pharmacy_products
+#: model:ir.model,name:tk_pharmacy_products.model_tk_route
+msgid "Administration route (oral, intravenous, etc)"
+msgstr "Via de administración"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__batch
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__batch
+msgid "Batch"
+msgstr "Marca"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__create_uid
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__create_uid
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__create_date
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__create_date
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__display_name
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__display_name
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__display_name
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__dosage
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__dosage
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__name
+msgid "Dosage"
+msgstr "Presentación"
+
+#. module: tk_pharmacy_products
+#: model:ir.model,name:tk_pharmacy_products.model_tk_dosage
+msgid "Dosage (box, pack, etc)"
+msgstr "Presentación (caja, blister, etc)"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__due_date
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__due_date
+msgid "Due date"
+msgstr "Fecha de vencimiento"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__Health_register
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__Health_register
+msgid "Health register"
+msgstr "Registro sanitario"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__id
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__id
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage____last_update
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form____last_update
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route____last_update
+msgid "Last Modified on"
+msgstr "Ultima modificación"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__write_uid
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__write_uid
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualización por"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_dosage__write_date
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__write_date
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__origin
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__origin
+msgid "Origin"
+msgstr "Origen"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__pharmaceutical_composition
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__pharmaceutical_composition
+msgid "Pharmaceutical composition"
+msgstr "Composición farmacéutica"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__pharmaceutical_form
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__pharmaceutical_form
+msgid "Pharmaceutical form"
+msgstr "Forma farmacéutica"
+
+#. module: tk_pharmacy_products
+#: model:ir.model,name:tk_pharmacy_products.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__quantity_per_presentation
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__quantity_per_presentation
+msgid "Quantity per presentation"
+msgstr "Cantidad por presentación"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_product__route
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_product_template__route
+msgid "Route"
+msgstr "Via de administración"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_pharmaceutical_form__name
+msgid "Pharmaceutical form"
+msgstr "Forma farmacéutica"
+
+#. module: tk_pharmacy_products
+#: model:ir.model,name:tk_pharmacy_products.model_tk_pharmaceutical_form
+msgid "Pharmaceutical form (powder, tablet, etc)"
+msgstr "Forma farmacéutica (polvo, tableta, etc)"
+
+#. module: tk_pharmacy_products
+#: model:ir.model.fields,field_description:tk_pharmacy_products.field_tk_route__name
+msgid "Route"
+msgstr "Via de administación"

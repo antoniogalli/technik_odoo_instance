@@ -2667,17 +2667,6 @@ def get_sign_document(xml, key_file, crt_file):
     if not ctx.key is not None:
         raise AssertionError
     ctx.sign(signature_node)
-
-#    try:
-#        firmando0 = ctx.sign()
-#        log.info("SIT get_sign_document  firmando firmando0=%s", firmando0)        
-#        firmando = ctx.sign(signature_node)
-#        log.info("SIT get_sign_document  firmando firmando=%s", firmando)  
-
-#        # ctx.sign(signature_node)
-#    except Exception as e:
-#        log.error("Error al firmar el nodo de firma: %s", str(e))    
-#    
     return etree.tostring(
         root,
         pretty_print=True,

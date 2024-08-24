@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="paperformat_letracambio" model="report.paperformat">
+        <field name="name">Letra de Cambio</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">1</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">120</field>
+    </record>
+    <report
+            id="action_report_letra_cambio_completa"
+            string="Letra de Cambio APROMED"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="fcc_fasufar_reports.letra_cambio_apromed"
+            name="fcc_fasufar_reports.letra_cambio_apromed"
+            paperformat="fcc_fasufar_reports.paperformat_letracambio"
+            print_report_name="'Letra de Cambio %s %s' % (object.numero,object.partner_id.name)"
+    />
+
+
+    <template id="letra_cambio_apromed">
+
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <style>
+                        .tablaredondeada {
+                        width: 100%;
+
+                        border-spacing: 0;
+                        }
+
+                        .tablaredondeada th, .tablaredondeada td {
+                        padding: 8px;
+                        text-align: left;
+                        border: 1px solid #000;
+                        vertical-align: top;
+                        }
+
+                        .tablaredondeada th {
+                        text-align: center;
+                        }
+
+                        /* Bordes redondeados para las esquinas superiores de la tabla */
+                        .tablaredondeada tr:first-child td:first-child {
+                        border-top-left-radius: 8px;
+                        }
+
+                        .tablaredondeada tr:first-child td:last-child {
+                        border-top-right-radius: 8px;
+                        }
+
+                        /* Bordes redondeados para las esquinas inferiores de la tabla */
+                        .tablaredondeada tr:last-child td:first-child {
+                        border-bottom-left-radius: 8px;
+                        }
+
+                        .tablaredondeada tr:last-child td:last-child {
+                        border-bottom-right-radius: 8px;
+                        }
+                        .contenedor1 {
+                        border: 2px solid #000;
+                        border-radius: 5px;
+                        }
+                        .contenedorletra {
+                        position: absolute;
+                        top: 100px;
+                        left: 265px;
+                        width: 991px;
+                        height: 430px;
+                        vertical-align: top;
+                        text-align: left;
+<!--                        background-color: #ff0000;-->
+                        font-size: 11px;
+                        }
+
+                    </style>
+                    <t t-if="doc.journal_id_letradecambio">
+
+
+                        <t t-set="dia_fechagiro" t-value="doc.fechagiro.day"/>
+                        <t t-set="dia_fechagiro_con_dos_digitos" t-value="'%02d' % dia_fechagiro"/>
+
+                        <t t-set="mes_fechagiro" t-value="doc.fechagiro.month"/>
+                        <t t-set="mes_fechagiro_con_dos_digitos" t-value="'%02d' % mes_fechagiro"/>
+
+                        <t t-set="anio_fechagiro" t-value="doc.fechagiro.year"/>
+
+
+                        <t t-set="dia_fechavencimiento" t-value="doc.fechavencimiento.day"/>
+                        <t t-set="dia_fechavencimiento_con_dos_digitos" t-value="'%02d' % dia_fechavencimiento"/>
+
+                        <t t-set="mes_fechavencimiento" t-value="doc.fechavencimiento.month"/>
+                        <t t-set="mes_fechavencimiento_con_dos_digitos" t-value="'%02d' % mes_fechavencimiento"/>
+
+                        <t t-set="anio_fechavencimiento" t-value="doc.fechavencimiento.year"/>
+
+
+                      <div class="contenedorletra">
+                        <table class="tablaredondeada">
+                            <tr>
+                                <td>NÚMERO</td>
+                                <td>REF. DEL GIRADOR</td>
+                                <td colspan="3">FECHA DE GIRO</td>
+                                <td>LUGAR DE GIRO</td>
+                                <td colspan="3">FECHA DE VENCIMIENTO</td>
+                                <td>MONEDA E IMPORTE</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">
+                                    <span t-field="doc.numero"/>
+                                </td>
+                                <td rowspan="2">
+                                    <span t-field="doc.referencia"/>
+                                </td>
+                                <td>DIA</td>
+                                <td>MES</td>
+                                <td>AÑO</td>
+                                <td rowspan="2">
+                                    <span t-field="doc.lugargiro"/>
+                                </td>
+                                <td>DIA</td>
+                                <td>MES</td>
+                                <td>AÑO</td>
+                                <td rowspan="2">
+                                    <span t-field="doc.amount"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="dia_fechagiro_con_dos_digitos"/>
+                                </td>
+                                <td>
+                                    <span t-esc="mes_fechagiro_con_dos_digitos"/>
+                                </td>
+                                <td>
+                                    <span t-esc="anio_fechagiro"/>
+                                </td>
+                                <td>
+                                    <span t-esc="dia_fechavencimiento_con_dos_digitos"/>
+                                </td>
+                                <td>
+                                    <span t-esc="mes_fechavencimiento_con_dos_digitos"/>
+                                </td>
+                                <td>
+                                    <span t-esc="anio_fechavencimiento"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    Por esta LETRA DE CAMBIO, se servirá(n) pagar incondicionalmente a la Orden de:
+                                    <b>
+                                        <span t-field="doc.company_id.name"/>
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="tablaredondeada">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.check_amount_in_words"/>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                        <table width="100%">
+                            <tr>
+                                <td width="50%" style="  vertical-align: top;">
+                                    En el siguiente lugar de pago, o con cargo en la cuenta corriente del Banco:
+                                    <div class="contenedor1">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <b>Aceptante:</b>
+                                                    <span t-field="doc.partner_id.name"/>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>Domicilio:</b>
+                                                    <span t-field="doc.partner_id.street"/>
+                                                    <b>Localidad:</b>
+                                                    <span t-field="doc.partner_id.l10n_pe_district"/>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>DOI/RUC:</b>
+                                                    <span t-field="doc.partner_id.vat"/>
+                                                    <b>Teléfono:</b>
+                                                    <span t-field="doc.partner_id.phone"/>/
+                                                    <span t-field="doc.partner_id.mobile"/>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                    <div class="contenedor1">
+                                        <table>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <b>Aval Permanente:</b>
+                                                    <span t-field="doc.aval_partner_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <b>Domicilio:</b>
+                                                    <span t-field="doc.aval_partner_id.street"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>Localidad:</b>
+                                                    <span t-field="doc.aval_partner_id.l10n_pe_district"/>
+                                                </td>
+                                                <td>
+                                                    <b>Teléfono:</b>
+                                                    <span t-field="doc.aval_partner_id.phone"/>/
+                                                    <span t-field="doc.aval_partner_id.mobile"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>DOI/RUC:</b>
+                                                    <span t-field="doc.aval_partner_id.vat"/>
+                                                </td>
+                                                <td>
+                                                    <b>Firma:</b><br/><br/>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                                <td width="50%" style="  vertical-align: top;">
+                                    Importe a debitar en la siguiente cuenta del Banco que se indica
+                                    <table width="100%" class="tablaredondeada">
+                                        <tr>
+                                            <td>BANCO</td>
+                                            <td>OFICINA</td>
+                                            <td>NUMERO DE CUENTA</td>
+                                            <td>D.C.</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <br/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="contenedor1">
+
+                                        <br/>
+                                        <br/>
+                                        <table width="100%">
+                                            <tr>
+                                                <td>______________________________</td>
+                                                <td>______________________________</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Firma</td>
+                                                <td>Firma</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Nombre del Representante(s)</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">D.O.I.</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+</div>
+                    </t>
+                </div>
+
+            </t>
+        </t>
+
+    </template>
+</odoo>
+
+

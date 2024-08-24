@@ -623,32 +623,43 @@ def get_document(self):
     return xml
 
 def get_sign_document(xml, key_file, crt_file):
-    xml_iofile=BytesIO(xml.encode('utf-8'))
-    root=etree.parse(xml_iofile).getroot()
-    signature_node = xmlsec.tree.find_node(root, xmlsec.Node.SIGNATURE)
-    assert signature_node is not None
-    assert signature_node.tag.endswith(xmlsec.Node.SIGNATURE)
-    ctx = xmlsec.SignatureContext()
-    key = xmlsec.Key.from_memory(key_file, xmlsec.KeyFormat.PEM)
-    assert key is not None
-    key.load_cert_from_memory(crt_file, xmlsec.KeyFormat.PEM)
-    ctx.key = key
-    assert ctx.key is not None
-    # Sign the template.
-    ctx.sign(signature_node)
+    try:    
+        xml_iofile=BytesIO(xml.encode('utf-8'))
+        root=etree.parse(xml_iofile).getroot()
+        signature_node = xmlsec.tree.find_node(root, xmlsec.Node.SIGNATURE)
+        
+        log.info("SIT signature_node =%s", signature_node)
+        assert signature_node is not None
+        assert signature_node.tag.endswith(xmlsec.Node.SIGNATURE)
+        ctx = xmlsec.SignatureContext()
+        key = xmlsec.Key.from_memory(key_file, xmlsec.KeyFormat.PEM)
+        assert key is not None
+        key.load_cert_from_memory(crt_file, xmlsec.KeyFormat.PEM)
+        ctx.key = key
+        assert ctx.key is not None
+        # Sign the template.
+        # ctx.sign()
+        log.info("SIT firmando ctx")
+        ctx.sign(signature_node)
+        # try:
+        #     firmando0 = ctx.sign()
+        #     log.info("SIT get_sign_document  firmando firmando0=%s", firmando0)        
+        #     firmando = ctx.sign(signature_node)
+        #     log.info("SIT get_sign_document  firmando firmando=%s", firmando)  
 
-#    try:
-#        firmando0 = ctx.sign()
-#        log.info("SIT get_sign_document  firmando firmando0=%s", firmando0)        
-#        firmando = ctx.sign(signature_node)
-#        log.info("SIT get_sign_document  firmando firmando=%s", firmando)  
-
-#        # ctx.sign(signature_node)
-#    except Exception as e:
-#        log.error("Error al firmar el nodo de firma: %s", str(e))    
-#    
-    return etree.tostring(root,  pretty_print=True, xml_declaration = True, encoding='utf-8', standalone=False)
-
+        #     # ctx.sign(signature_node)
+        # except Exception as e:
+        #     log.error("Error al firmar el nodo de firma: %s", str(e))        
+        log.info("SIT ctx firmado ")
+        return etree.tostring(root,  pretty_print=True, xml_declaration = True, encoding='utf-8', standalone=False)
+    except AssertionError as ae:
+        log.error("Error de aserción al firmar XML: %s", str(ae))
+        return None
+    
+    except Exception as e:
+        log.error("Error al firmar XML: %s", str(e))
+        return None
+    
 def get_ticket_status(ticket, client):
     client['type']="status"
     client = Client(**client)
