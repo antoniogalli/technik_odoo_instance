@@ -45,6 +45,7 @@ services:
       net-web:
         aliases:
         - atom-db
+        ipv4_address: 192.168.231.101
 networks:
   default:
     external: false
