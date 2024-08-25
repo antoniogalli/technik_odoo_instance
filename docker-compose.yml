@@ -1,3 +1,8 @@
+#
+# comando de inicio para odoo
+#   docker compose exec -u root erp bash -c "install -d -o odoo -g odoo /var/lib/odoo/.local"
+#
+
 version: '3.5'
 services:
   db:
