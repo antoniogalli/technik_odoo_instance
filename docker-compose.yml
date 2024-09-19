@@ -19,7 +19,9 @@ services:
     volumes:
       - ./odoo-pgdata:/var/lib/postgresql/data/pgdata
   erp:
-    image: dockersit1/sit_ce:13.0-tnk.3
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - db
     ports:
@@ -40,7 +42,7 @@ services:
       - ERP_LIMIT_TIME_REAL=7200
       - ERP_PROXY_MODE=True
       - ERP_WORKERS=4
-      - ERP_DBFILTER=viniteca_tk1
+      # - ERP_DBFILTER=viniteca_tk1
       # - ERP_BUS_ENABLE=True
       # - ERP_BUS_URL=http://localhost:8069
       - ERP_ADMIN_PASSWD=suPer-TKs3creT-paSs
