@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+  <t t-extend="PosTicketPeruvianModel01">
+    <t t-jquery="table[class='receipt-orderlines']" t-operation="before">
+      <t t-set="hasDetailSale" t-value="false" />
+    </t>
+
+    <t t-jquery="t[t-esc='orderline.get_product().display_name']" t-operation="after">
+      <t t-if="orderline.get_product().description_sale">
+        <t t-set="hasDetailSale" t-value="true" />
+      </t>
+    </t>
+
+    <t t-jquery="div[class='pos-sale-ticket-model1']" t-operation="after">
+      <t t-if="hasDetailSale">
+        <p style="page-break-after:always;">   </p>
+        <div class="pos-sale-ticket-model1">
+          <div style='text-align:center; padding: 40px 0 20px;'>
+            <b style="font-size: 16px;">
+              DETALLE DE PRODUCCION
+            </b>
+          </div>
+          <t t-set="rowIndex" t-value="0" />
+          <table class='receipt-orderlines' id="tblDetailSale" style="margin-bottom: 40px;">
+            <colgroup>
+              <col width='10%' />
+              <col width='90%' />
+            </colgroup>
+            <thead>
+              <tr style="border-bottom: 1px solid #000; font-size: 10px;">
+                <th>DESCRIPCION</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 10px; border-bottom: 1px solid;">
+              <t t-foreach="orderlines" t-as="orderline">
+                <t t-if="orderline.get_product().description_sale">
+                  <t t-set="rowIndex" t-value="rowIndex + 1" />
+                  <tr>
+                    <td style="text-align: right; padding-right: 5px;">
+                      <t t-esc="rowIndex" />
+                    </td>
+                    <td>
+                      <t t-esc="orderline.get_product().description_sale" />
+                    </td>
+                  </tr>
+                </t>
+              </t>
+            </tbody>
+          </table>
+        </div>
+      </t>
+    </t>
+  </t>
+</templates>

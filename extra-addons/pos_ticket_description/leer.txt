@@ -1,0 +1,26 @@
+Ahora, te explicaré paso a paso cómo crear y configurar este addon:
+
+Crea una nueva carpeta llamada pos_ticket_description en la ruta addons de tu instalación de Odoo.
+Dentro de esta carpeta, crea los archivos y la estructura de carpetas como se muestra en el comentario al inicio del código.
+Copia el contenido de cada archivo del artefacto en los archivos correspondientes que has creado.
+El archivo __init__.py puede quedar vacío, ya que no necesitamos importar ningún módulo Python en este caso.
+En el archivo __manifest__.py, asegúrate de cambiar 'Your Name' y 'https://www.yourwebsite.com' por tu nombre y sitio web, si lo deseas.
+El archivo assets.xml en la carpeta views se encarga de cargar nuestro archivo JavaScript en el punto de venta.
+El archivo models.js en la ruta static/src/js/ contiene la lógica principal:
+
+Extendemos el modelo Orderline para incluir la descripción de venta en los datos exportados para impresión.
+Extendemos el modelo Order para modificar la forma en que se presentan las líneas de pedido en el recibo, incluyendo la descripción.
+
+
+Después de crear el addon, necesitas:
+
+Reiniciar el servidor Odoo.
+Actualizar la lista de aplicaciones en el backend de Odoo.
+Buscar e instalar el nuevo módulo "POS Ticket Description".
+Reiniciar el servidor Odoo nuevamente para asegurarte de que todos los cambios surtan efecto.
+
+
+Finalmente, abre el punto de venta y realiza una venta de prueba. Deberías ver la descripción de venta del producto en cada línea del ticket.
+
+Este addon modificará la forma en que se genera el ticket en el punto de venta, añadiendo la descripción de venta del producto a cada línea. Si necesitas hacer ajustes en el diseño del ticket, podrías necesitar modificar las plantillas QWeb del punto de venta, lo cual requeriría pasos adicionales.
+¿Hay algo más en lo que pueda ayudarte o alguna parte del proceso que quieras que explique con más detalle?
