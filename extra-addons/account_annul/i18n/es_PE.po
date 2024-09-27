@@ -27,16 +27,22 @@ msgid ""
 " * The 'Anulled' status is used when user annul invoice (keeping the invoice number).\n"
 " * The 'Cancelled' status is used when user cancel invoice."
 msgstr ""
+" * El estado 'Borrador' se utiliza cuando un usuario codifica una factura nueva y no confirmada.\n"
+" * El estado 'Proforma' se utiliza cuando la factura no tiene número de factura.\n"
+" * El estado 'Abierto' se utiliza cuando el usuario crea una factura, se genera un número de factura. Permanece en el estado abierto hasta que el usuario paga la factura.\n"
+" * El estado 'Pagado' se establece automáticamente cuando se paga la factura. Sus asientos de diario relacionados pueden conciliarse o no.\n"
+" * El estado 'Anulado' se utiliza cuando el usuario anula una factura (manteniendo el número de factura).\n"
+" * El estado 'Cancelado' se utiliza cuando el usuario cancela la factura."
 
 #. module: account_annul
 #: model:ir.model,name:account_annul.model_account_invoice_report
 msgid "Accoun Invoice report"
-msgstr ""
+msgstr "Informe de factura de cuenta"
 
 #. module: account_annul
 #: model_terms:ir.ui.view,arch_db:account_annul.view_move_form
 msgid "Annul Invoice"
-msgstr "Anular CPE"
+msgstr "Anular CPE (Boleta/Factura)"
 
 #. module: account_annul
 #: model:ir.model.fields,field_description:account_annul.field_account_move__annul
